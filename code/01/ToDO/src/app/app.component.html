@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row"><h2 class="title">ToDO Application</h2></div>
+
+  <div class="row">
+    <form class="form-inline">
+      <div class="form-row">
+        <div class="col-md-5">
+          <input type="text" name="title" class="form-control" placeholder="ToDo Title" autocomplete="off"/>
+        </div>
+        <div class="col-md-5">
+          <!-- <input type="date" /> -->
+          <div class="form-group">
+              <div class="input-group">
+                <input class="form-control" placeholder="completion Date"
+                       name="dp" ngbDatepicker #d="ngbDatepicker" autocomplete="off">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="col-md-2"><button class="btn btn-primary">Add</button></div>
+      </div>
+    </form>
+  </div>
+</div>
