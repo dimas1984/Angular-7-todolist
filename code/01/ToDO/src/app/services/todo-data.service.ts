@@ -1,21 +1,3 @@
-# Kemampuan Akhir Yang Direncanakan
-
-- Peserta mampu menampilkan user yang Login saat ini pada navbar
-
-# Percobaan 
-- buka file **todo-data.service.ts** tambahkan method **getTodoById**
-
-```
- getTodoById(id:number):Todo{
-    const todos=this.getAllTodos();
-    return todos.filter(todo=>todo.id===id).pop();
-  }
-
-```
-
-- jadi keseluruhan code pada **todo-data.service.ts**
-
-```
 import { Injectable } from "@angular/core";
 import { Todo } from "../class/todo";
 
@@ -60,4 +42,3 @@ export class TodoDataService {
     );
   }
 }
-```

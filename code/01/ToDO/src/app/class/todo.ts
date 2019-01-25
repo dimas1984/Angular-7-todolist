@@ -1,15 +1,3 @@
-# Kemampuan Akhir Yang Direncanakan
-
-- Peserta mampu membuat Class TODO
-
-# Percobaan 4 Membuat Class TODO
-
-- buatlah folder baru dengan nama **class** **(src/class/todo.ts)** dimana didalamnya ada file todo.ts
-![](image/chapter1/img9.png)
-
-- buka file **todo.ts** tambahkan code berikut
-
-```
 
 export class Todo{
     id:number;
@@ -30,4 +18,3 @@ export class Todo{
         Object.assign(this,value);
     }
 }
-```
