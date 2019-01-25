@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>6. @ng-bootstrap · GitBook</title>
+        <title>6. TODO Service · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -120,7 +120,7 @@
                 <a href="02.html">
             
                     
-                    2. Membuat Project Baru dan Konfigurasi
+                    2. Membuat project baru, Install Bootstrap, Install @ng-bootstrap
             
                 </a>
             
@@ -133,7 +133,7 @@
                 <a href="03.html">
             
                     
-                    3. Install Bootstrap 4 dan konfigurasi
+                    3. Form TODO, DatePicker
             
                 </a>
             
@@ -146,7 +146,7 @@
                 <a href="04.html">
             
                     
-                    4. Membuat Component Baru
+                    4. TODO Table
             
                 </a>
             
@@ -159,7 +159,7 @@
                 <a href="05.html">
             
                     
-                    5. Routes
+                    5. TODO Class
             
                 </a>
             
@@ -172,7 +172,7 @@
                 <a href="06.html">
             
                     
-                    6. @ng-bootstrap
+                    6. TODO Service
             
                 </a>
             
@@ -185,7 +185,7 @@
                 <a href="07.html">
             
                     
-                    7. navbar
+                    7. Method di TODO Service
             
                 </a>
             
@@ -198,7 +198,7 @@
                 <a href="08.html">
             
                     
-                    8. Develop dengan Firebase
+                    8. Save Todo di Local Storage
             
                 </a>
             
@@ -211,7 +211,7 @@
                 <a href="09.html">
             
                     
-                    9. Auth with Google Login
+                    9. Method addTodo
             
                 </a>
             
@@ -224,7 +224,7 @@
                 <a href="10.html">
             
                     
-                    10. Logout
+                    10.Menampilkan isi TODO
             
                 </a>
             
@@ -237,7 +237,7 @@
                 <a href="11.html">
             
                     
-                    11. Menampilkan User Aktif
+                    11.Get TODO by id 
             
                 </a>
             
@@ -250,7 +250,7 @@
                 <a href="12.html">
             
                     
-                    12. Menggunakan pipe untuk async
+                    12.Update TODO
             
                 </a>
             
@@ -263,7 +263,7 @@
                 <a href="13.html">
             
                     
-                    13. Service
+                    13.Toggle Method
             
                 </a>
             
@@ -535,7 +535,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >6. @ng-bootstrap</a>
+        <a href="." >6. TODO Service</a>
     </h1>
 </div>
 
@@ -552,100 +552,180 @@
                                 
                                 <h1 id="kemampuan-akhir-yang-direncanakan">Kemampuan Akhir Yang Direncanakan</h1>
 <ul>
-<li>Peserta mampu menambahkan @ng-bootstrap <a href="https://ng-bootstrap.github.io/#/home" target="_blank">https://ng-bootstrap.github.io/#/home</a></li>
+<li>Peserta mampu membuat service todo</li>
 </ul>
-<h1 id="percobaan-5-menambahkan-ng-bootstrap">Percobaan 5 Menambahkan @ng-bootstrap</h1>
+<h1 id="percobaan-membuat-service">Percobaan membuat service</h1>
 <ul>
-<li>sebelum menambahkan menu pada drop-down maka terlebih dahulu install ng-bootstrap code sebagai berikut:</li>
-</ul>
-<pre><code>npm i --save @ng-bootstrap/ng-bootstrap
-</code></pre><ul>
-<li>import ng-bootstrap pada <strong>app.module.ts</strong> code Sebagai berikut:</li>
-</ul>
-<pre><code>import { NgbModule} from &apos;@ng-bootstrap/ng-bootstrap&apos;;
-</code></pre><ul>
-<li>tambahkan juga pada imports:</li>
-</ul>
-<pre><code> NgbModule.forRoot(),
-</code></pre><ul>
-<li>sehingga keseluruhan code pada <strong>app.module.ts</strong></li>
+<li>karena kita bekerja menggunakan form maka terlebih dahulu kita <strong>import FormModule</strong></li>
+<li>buka file <strong>app.module.ts</strong> tambahkan <strong>FormModule</strong> sehingga hasil keseluruhan codenya menjadi seperti berikut:</li>
 </ul>
 <pre><code>import { BrowserModule } from &apos;@angular/platform-browser&apos;;
 import { NgModule } from &apos;@angular/core&apos;;
-import { AngularFireModule } from &apos;angularfire2&apos;;
-import { AngularFireDatabaseModule } from &apos;angularfire2/database&apos;;
-import { AngularFireAuthModule } from &apos;angularfire2/auth&apos;;
-import { environment } from &apos;src/environments/environment&apos;;
-import { RouterModule} from &apos;@angular/router&apos;;
-import { NgbModule} from &apos;@ng-bootstrap/ng-bootstrap&apos;;
-
+import { NgbModule } from &apos;@ng-bootstrap/ng-bootstrap&apos;;
+import { AngularFontAwesomeModule } from &apos;angular-font-awesome&apos;;
 import { AppComponent } from &apos;./app.component&apos;;
-import { BsNavbarComponent } from &apos;./bs-navbar/bs-navbar.component&apos;;
-import { HomeComponent } from &apos;./home/home.component&apos;;
-import { ProductsComponent } from &apos;./products/products.component&apos;;
-import { ShoppingChartComponent } from &apos;./shopping-chart/shopping-chart.component&apos;;
-import { CheckOutComponent } from &apos;./check-out/check-out.component&apos;;
-import { OrderSuccessComponent } from &apos;./order-success/order-success.component&apos;;
-import { MyOrdersComponent } from &apos;./my-orders/my-orders.component&apos;;
-import { AdminProductsComponent } from &apos;./admin/admin-products/admin-products.component&apos;;
-import { AdminOrdersComponent } from &apos;./admin/admin-orders/admin-orders.component&apos;;
-import { LoginComponent } from &apos;./login/login.component&apos;;
+import { FormsModule } from &apos;@angular/forms&apos;;
 
 @NgModule({
   declarations: [
-    AppComponent,
-    BsNavbarComponent,
-    HomeComponent,
-    ProductsComponent,
-    ShoppingChartComponent,
-    CheckOutComponent,
-    OrderSuccessComponent,
-    MyOrdersComponent,
-    AdminProductsComponent,
-    AdminOrdersComponent,
-    LoginComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule,
-    AngularFireAuthModule,
-    NgbModule.forRoot(),
-    RouterModule.forRoot(
-      [
-        {path:&apos;&apos;,component:HomeComponent},
-        {path:&apos;products&apos;,component:ProductsComponent},
-        {path:&apos;shopping-chart&apos;,component:ShoppingChartComponent},
-        {path:&apos;check-out&apos;,component:CheckOutComponent},
-        {path:&apos;order-success&apos;,component:OrderSuccessComponent},
-        {path:&apos;login&apos;,component:LoginComponent},
-        {path:&apos;admin/admin-products&apos;,component:AdminProductsComponent},
-        {path:&apos;admin/admin-orders&apos;,component:AdminOrdersComponent},
-
-      ]
-    )
+    NgbModule,
+    AngularFontAwesomeModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
 </code></pre><ul>
-<li>buka file <strong>bs-navbar.component.html</strong> dan rubah code pada menu dropdown menjadi seperti berikut:</li>
+<li>buka file <strong>app.component.html</strong> tambahkan <strong>fungsi click</strong> </li>
 </ul>
-<pre><code>    &lt;!-- edit dropdown --&gt;
-      &lt;li ngbDropdown class=&quot;nav-item dropdown show&quot;&gt;
-        &lt;a ngbDropdownToggle class=&quot;nav-link dropdown-toggle&quot; href=&quot;#&quot; id=&quot;dropdown01&quot; data-toggle=&quot;dropdown&quot; aria-haspopup=&quot;true&quot; aria-expanded=&quot;false&quot;&gt;Dropdown&lt;/a&gt;
-        &lt;div ngbDropdownMenu class=&quot;dropdown-menu show&quot; aria-labelledby=&quot;dropdown01&quot;&gt;
-          &lt;a class=&quot;dropdown-item&quot; href=&quot;#&quot;&gt;Action&lt;/a&gt;
-          &lt;a class=&quot;dropdown-item&quot; href=&quot;#&quot;&gt;Another action&lt;/a&gt;
-          &lt;a class=&quot;dropdown-item&quot; href=&quot;#&quot;&gt;Something else here&lt;/a&gt;
-        &lt;/div&gt;
-      &lt;/li&gt;
+<pre><code> &lt;div class=&quot;col-md-2&quot;&gt;&lt;button class=&quot;btn btn-primary&quot; (click)=&quot;addTodo()&quot;&gt;Add&lt;/button&gt;&lt;/div&gt;
 </code></pre><ul>
-<li>jika berhasil maka hasilnya seperti pada gambar :</li>
+<li>sehinga keseluruhan codenya menjadi seperti berikut:</li>
 </ul>
-<p><img src="image/chapter1/img8.png" alt=""></p>
+<pre><code>&lt;div class=&quot;container&quot;&gt;
+  &lt;div class=&quot;row&quot;&gt;&lt;h2 class=&quot;title&quot;&gt;ToDO Application&lt;/h2&gt;&lt;/div&gt;
 
+  &lt;div class=&quot;row&quot;&gt;
+    &lt;form class=&quot;form-inline&quot;&gt;
+      &lt;div class=&quot;form-row&quot;&gt;
+        &lt;div class=&quot;col-md-5&quot;&gt;
+          &lt;input
+            type=&quot;text&quot;
+            name=&quot;title&quot;
+            class=&quot;form-control&quot;
+            placeholder=&quot;ToDo Title&quot;
+            autocomplete=&quot;off&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;col-md-5&quot;&gt;
+          &lt;!-- &lt;input type=&quot;date&quot; /&gt; --&gt;
+          &lt;div class=&quot;form-group&quot;&gt;
+            &lt;div class=&quot;input-group&quot;&gt;
+              &lt;input
+                class=&quot;form-control&quot;
+                placeholder=&quot;completion Date&quot;
+                name=&quot;dp&quot;
+                ngbDatepicker
+                #d=&quot;ngbDatepicker&quot;
+                autocomplete=&quot;off&quot;
+              /&gt;
+              &lt;div class=&quot;input-group-append&quot;&gt;
+                &lt;button
+                  class=&quot;btn btn-outline-secondary calendar&quot;
+                  (click)=&quot;d.toggle()&quot;
+                  type=&quot;button&quot;
+                &gt;
+                  &lt;i class=&quot;fa fa-calendar&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;
+                &lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;col-md-2&quot;&gt;&lt;button class=&quot;btn btn-primary&quot; (click)=&quot;addTodo()&quot;&gt;Add&lt;/button&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;
+  &lt;/div&gt;
+
+  &lt;table class=&quot;table&quot;&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;&lt;/th&gt;
+        &lt;th&gt;Title&lt;/th&gt;
+        &lt;th&gt;Date&lt;/th&gt;
+        &lt;th&gt;Status&lt;/th&gt;
+        &lt;th&gt;Options&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Dian Inggit&lt;/td&gt;
+        &lt;td&gt;05-10-1985&lt;/td&gt;
+        &lt;td&gt;not complete&lt;/td&gt;
+        &lt;td class=&quot;icons&quot;&gt;
+          &lt;button class=&quot;btn btn-success&quot;&gt;&lt;i class=&quot;fa fa-check&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+          &lt;button class=&quot;btn btn-primary&quot;&gt;&lt;i class=&quot;fa fa-pencil&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+          &lt;button class=&quot;btn btn-danger&quot;&gt;&lt;i class=&quot;fa fa-trash&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
+</code></pre><ul>
+<li>buka file <strong>app.component.ts</strong> buatlah method <strong>addTodo</strong></li>
+</ul>
+<pre><code>import { Component } from &apos;@angular/core&apos;;
+
+@Component({
+  selector: &apos;app-root&apos;,
+  templateUrl: &apos;./app.component.html&apos;,
+  styleUrls: [&apos;./app.component.css&apos;]
+})
+export class AppComponent {
+  constructor(){}
+  addTodo(){}
+}
+</code></pre><ul>
+<li>buatlah sebuah service <strong>ket: g-&gt;generate, s-&gt;service, services-&gt;namafolder, todo-data-&gt;namafile</strong></li>
+</ul>
+<pre><code>ng g s services/todo-data
+</code></pre><ul>
+<li>buka file <strong>app.module.ts</strong> tambahkan <strong>todoservices</strong> seperti code dibawah ini </li>
+</ul>
+<pre><code>import { BrowserModule } from &apos;@angular/platform-browser&apos;;
+import { NgModule } from &apos;@angular/core&apos;;
+import { NgbModule } from &apos;@ng-bootstrap/ng-bootstrap&apos;;
+import { AngularFontAwesomeModule } from &apos;angular-font-awesome&apos;;
+import { AppComponent } from &apos;./app.component&apos;;
+import { FormsModule } from &apos;@angular/forms&apos;;
+import { TodoDataService } from &apos;./services/todo-data.service&apos;;
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    NgbModule,
+    AngularFontAwesomeModule,
+    FormsModule
+  ],
+  providers: [TodoDataService],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+</code></pre><ul>
+<li>buka file <strong>to-do.service.ts</strong> tambahkan code berikut</li>
+</ul>
+<pre><code>import { Injectable } from &apos;@angular/core&apos;;
+import { Todo } from &apos;../class/todo&apos;;
+
+@Injectable({
+  providedIn: &apos;root&apos;
+})
+export class TodoDataService {
+
+  lastid=0;
+  todos:Todo[]=[]
+
+  constructor() { }
+
+  getAllTodos(){
+    const storageItem = JSON.parse(window.localStorage.getItem(&apos;app-todos&apos;));
+    if (storageItem===null){
+      return [];
+    }else{
+      return storageItem.todos;
+    }
+  }
+
+}
+</code></pre>
                                 
                                 </section>
                             
@@ -672,12 +752,12 @@ export class AppModule { }
 
             
                 
-                <a href="05.html" class="navigation navigation-prev " aria-label="Previous page: 5. Routes">
+                <a href="05.html" class="navigation navigation-prev " aria-label="Previous page: 5. TODO Class">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="07.html" class="navigation navigation-next " aria-label="Next page: 7. navbar">
+                <a href="07.html" class="navigation navigation-next " aria-label="Next page: 7. Method di TODO Service">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -688,7 +768,7 @@ export class AppModule { }
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"6. @ng-bootstrap","level":"1.7","depth":1,"next":{"title":"7. navbar","level":"1.8","depth":1,"path":"07.md","ref":"07.md","articles":[]},"previous":{"title":"5. Routes","level":"1.6","depth":1,"path":"05.md","ref":"05.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"06.md","mtime":"2019-01-17T14:14:54.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-23T04:49:43.221Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"6. TODO Service","level":"1.7","depth":1,"next":{"title":"7. Method di TODO Service","level":"1.8","depth":1,"path":"07.md","ref":"07.md","articles":[]},"previous":{"title":"5. TODO Class","level":"1.6","depth":1,"path":"05.md","ref":"05.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"06.md","mtime":"2019-01-25T01:08:27.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-25T00:06:19.281Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

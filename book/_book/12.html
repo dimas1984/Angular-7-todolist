@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>12. Menggunakan pipe untuk async · GitBook</title>
+        <title>12.Update TODO · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -120,7 +120,7 @@
                 <a href="02.html">
             
                     
-                    2. Membuat Project Baru dan Konfigurasi
+                    2. Membuat project baru, Install Bootstrap, Install @ng-bootstrap
             
                 </a>
             
@@ -133,7 +133,7 @@
                 <a href="03.html">
             
                     
-                    3. Install Bootstrap 4 dan konfigurasi
+                    3. Form TODO, DatePicker
             
                 </a>
             
@@ -146,7 +146,7 @@
                 <a href="04.html">
             
                     
-                    4. Membuat Component Baru
+                    4. TODO Table
             
                 </a>
             
@@ -159,7 +159,7 @@
                 <a href="05.html">
             
                     
-                    5. Routes
+                    5. TODO Class
             
                 </a>
             
@@ -172,7 +172,7 @@
                 <a href="06.html">
             
                     
-                    6. @ng-bootstrap
+                    6. TODO Service
             
                 </a>
             
@@ -185,7 +185,7 @@
                 <a href="07.html">
             
                     
-                    7. navbar
+                    7. Method di TODO Service
             
                 </a>
             
@@ -198,7 +198,7 @@
                 <a href="08.html">
             
                     
-                    8. Develop dengan Firebase
+                    8. Save Todo di Local Storage
             
                 </a>
             
@@ -211,7 +211,7 @@
                 <a href="09.html">
             
                     
-                    9. Auth with Google Login
+                    9. Method addTodo
             
                 </a>
             
@@ -224,7 +224,7 @@
                 <a href="10.html">
             
                     
-                    10. Logout
+                    10.Menampilkan isi TODO
             
                 </a>
             
@@ -237,7 +237,7 @@
                 <a href="11.html">
             
                     
-                    11. Menampilkan User Aktif
+                    11.Get TODO by id 
             
                 </a>
             
@@ -250,7 +250,7 @@
                 <a href="12.html">
             
                     
-                    12. Menggunakan pipe untuk async
+                    12.Update TODO
             
                 </a>
             
@@ -263,7 +263,7 @@
                 <a href="13.html">
             
                     
-                    13. Service
+                    13.Toggle Method
             
                 </a>
             
@@ -535,7 +535,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >12. Menggunakan pipe untuk async</a>
+        <a href="." >12.Update TODO</a>
     </h1>
 </div>
 
@@ -552,96 +552,84 @@
                                 
                                 <h1 id="kemampuan-akhir-yang-direncanakan">Kemampuan Akhir Yang Direncanakan</h1>
 <ul>
-<li>Peserta mampu menampilkan user yang Login saat ini pada navbar menggunakan pipe</li>
-<li><a href="https://angular.io/api/common/AsyncPipe" target="_blank">https://angular.io/api/common/AsyncPipe</a> </li>
+<li>Peserta mampu membuat method update </li>
 </ul>
-<h1 id="percobaan-11-modifikasi-active-login-menggunakan-pipe">Percobaan 11 Modifikasi active login menggunakan pipe</h1>
+<h1 id="percobaan">Percobaan</h1>
 <ul>
-<li>Buka file <strong>bs-navbar.component.ts</strong> dan modifakasi codenya menjadi seperti berikut</li>
+<li>buka file <strong>todo-data.service.ts</strong> tambahkan metode <strong>updateToDo</strong></li>
 </ul>
-<pre><code>import { Component } from &apos;@angular/core&apos;;
-import { AngularFireAuth} from &apos;angularfire2/auth&apos;;
-import * as firebase from &apos;firebase&apos;;
-import { Observable } from &apos;rxjs/internal/Observable&apos;;
+<pre><code>
+ updateTodo(id:number,values:Object={}){
+    const todo=this.getTodoById(id);
+    if(!todo){
+      return null;
+    }
+    let todos = this.getAllTodos();
+    todos = todos.filter(t=&gt;t.id !== todo.id);
+    const todoValues= Object.assign(todo,values);
+    todos.push(todoValues);
+    this.setTodo(todos);
+  }
+</code></pre><ul>
+<li>sehingga code keseluruhannya pada file <strong>todo-data.service.ts</strong></li>
+</ul>
+<pre><code>import { Injectable } from &quot;@angular/core&quot;;
+import { Todo } from &quot;../class/todo&quot;;
 
-
-@Component({
-  selector: &apos;bs-navbar&apos;,
-  templateUrl: &apos;./bs-navbar.component.html&apos;,
-  styleUrls: [&apos;./bs-navbar.component.css&apos;]
+@Injectable({
+  providedIn: &quot;root&quot;
 })
-export class BsNavbarComponent {
+export class TodoDataService {
+  lastid = 0;
+  todos: Todo[] = [];
 
-  user$:Observable&lt;firebase.User&gt;;
+  constructor() {}
 
-  constructor(private afAuth:AngularFireAuth) {
+  addTodos(todo: Todo): TodoDataService {
+    if (!todo.id) {
+      todo.id = ++this.lastid;
+    }
+    const todos = this.getAllTodos();
+    todos.push(todo);
+    //add code
+    this.setTodo(todos);
+    return this;
+  }
 
-    // afAuth.authState.subscribe(user=&gt;this.user=user);
-    this.user$= afAuth.authState;
-   }
+  getAllTodos() {
+    const storageItem = JSON.parse(window.localStorage.getItem(&quot;app-todos&quot;));
+    if (storageItem === null) {
+      return [];
+    } else {
+      return storageItem.todos;
+    }
+  }
 
-  logout(){
-    this.afAuth.auth.signOut();
+  getTodoById(id:number):Todo{
+    const todos=this.getAllTodos();
+    return todos.filter(todo=&gt;todo.id===id).pop();
+  }
+
+  updateTodo(id:number,values:Object={}){
+    const todo=this.getTodoById(id);
+    if(!todo){
+      return null;
+    }
+    let todos = this.getAllTodos();
+    todos = todos.filter(t=&gt;t.id !== todo.id);
+    const todoValues= Object.assign(todo,values);
+    todos.push(todoValues);
+    this.setTodo(todos);
+  }
+
+  setTodo(usertodos: Todo[]) {
+    window.localStorage.setItem(
+      &quot;app-todos&quot;,
+      JSON.stringify({ todos: usertodos })
+    );
   }
 }
-</code></pre><ul>
-<li>buka file <strong>bs-navbar.component.html</strong> dan modifikasi codenya menjadi seperti berikut :</li>
-</ul>
-<pre><code>      &lt;!-- tambahkan ng template --&gt;
-        &lt;ng-template #anonymousUser&gt;
-              &lt;li class=&quot;nav-item&quot;&gt;
-              &lt;a class=&quot;nav-link&quot; routerLink=&quot;/login&quot;&gt;Login&lt;/a&gt;
-            &lt;/li&gt;
-        &lt;/ng-template&gt;
-
-      &lt;!-- rubah code menggunakan async as user --&gt;
-      &lt;li ngbDropdown *ngIf=&quot;user$ | async as user; else anonymousUser&quot; class=&quot;nav-item dropdown&quot;&gt;
-        &lt;!-- edit username mjd  {{user.displayName}}--&gt;
-        &lt;a ngbDropdownToggle class=&quot;nav-link dropdown-toggle&quot; id=&quot;dropdown01&quot; data-toggle=&quot;dropdown&quot; aria-haspopup=&quot;true&quot; aria-expanded=&quot;false&quot;&gt;{{user.displayName}}&lt;/a&gt;
-</code></pre><ul>
-<li>sehingga keseluruhan code pada <strong>bs-navbar.component.html</strong> sbb:</li>
-</ul>
-<pre><code>&lt;nav class=&quot;navbar navbar-expand-md navbar-dark bg-dark fixed-top&quot;&gt;
-  &lt;a class=&quot;navbar-brand&quot; routerLink=&quot;/&quot;&gt;O&lt;/a&gt;
-  &lt;button class=&quot;navbar-toggler&quot; type=&quot;button&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#navbarsExampleDefault&quot; aria-controls=&quot;navbarsExampleDefault&quot; aria-expanded=&quot;false&quot; aria-label=&quot;Toggle navigation&quot;&gt;
-    &lt;span class=&quot;navbar-toggler-icon&quot;&gt;&lt;/span&gt;
-  &lt;/button&gt;
-
-  &lt;div class=&quot;collapse navbar-collapse&quot; id=&quot;navbarsExampleDefault&quot;&gt;
-    &lt;ul class=&quot;navbar-nav mr-auto&quot;&gt;
-
-      &lt;li class=&quot;nav-item&quot;&gt;
-        &lt;!-- 2.tambahkan routerlink --&gt;
-        &lt;a class=&quot;nav-link&quot; routerLink=&quot;/shopping-chart&quot;&gt;Shopping Chart&lt;/a&gt;
-      &lt;/li&gt;
-
-      &lt;!-- tambahkan ng template --&gt;
-        &lt;ng-template #anonymousUser&gt;
-              &lt;li class=&quot;nav-item&quot;&gt;
-              &lt;a class=&quot;nav-link&quot; routerLink=&quot;/login&quot;&gt;Login&lt;/a&gt;
-            &lt;/li&gt;
-        &lt;/ng-template&gt;
-
-      &lt;!-- rubah code menggunakan async as user --&gt;
-      &lt;li ngbDropdown *ngIf=&quot;user$ | async as user; else anonymousUser&quot; class=&quot;nav-item dropdown&quot;&gt;
-        &lt;!-- edit username mjd  {{user.displayName}}--&gt;
-        &lt;a ngbDropdownToggle class=&quot;nav-link dropdown-toggle&quot; id=&quot;dropdown01&quot; data-toggle=&quot;dropdown&quot; aria-haspopup=&quot;true&quot; aria-expanded=&quot;false&quot;&gt;{{user.displayName}}&lt;/a&gt;
-        &lt;div ngbDropdownMenu class=&quot;dropdown-menu show&quot; aria-labelledby=&quot;dropdown01&quot;&gt;
-          &lt;!-- rubah code seperti dibawah ini --&gt;
-          &lt;a class=&quot;dropdown-item&quot; routerLink=&quot;orders&quot;&gt;My Orders&lt;/a&gt;
-          &lt;a class=&quot;dropdown-item&quot; routerLink=&quot;/admin/admin-orders&quot;&gt;Manage Orders&lt;/a&gt;
-          &lt;a class=&quot;dropdown-item&quot; routerLink=&quot;/admin/admin-products&quot;&gt;Manage Products&lt;/a&gt;
-          &lt;a class=&quot;dropdown-item&quot; (click)=&quot;logout()&quot;&gt; Log Out&lt;/a&gt;
-        &lt;/div&gt;
-      &lt;/li&gt;     
-    &lt;/ul&gt;
-  &lt;/div&gt;
-&lt;/nav&gt;
-</code></pre><ul>
-<li>jika berhasil maka tampilan seperti pada gambar berikut <strong>saat login</strong>
-<img src="image/chapter2/img8.png" alt=""></li>
-</ul>
-
+</code></pre>
                                 
                                 </section>
                             
@@ -668,12 +656,12 @@ export class BsNavbarComponent {
 
             
                 
-                <a href="11.html" class="navigation navigation-prev " aria-label="Previous page: 11. Menampilkan User Aktif">
+                <a href="11.html" class="navigation navigation-prev " aria-label="Previous page: 11.Get TODO by id ">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="13.html" class="navigation navigation-next " aria-label="Next page: 13. Service">
+                <a href="13.html" class="navigation navigation-next " aria-label="Next page: 13.Toggle Method">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -684,7 +672,7 @@ export class BsNavbarComponent {
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"12. Menggunakan pipe untuk async","level":"1.13","depth":1,"next":{"title":"13. Service","level":"1.14","depth":1,"path":"13.md","ref":"13.md","articles":[]},"previous":{"title":"11. Menampilkan User Aktif","level":"1.12","depth":1,"path":"11.md","ref":"11.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"12.md","mtime":"2019-01-21T14:11:14.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-23T04:49:43.221Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"12.Update TODO","level":"1.13","depth":1,"next":{"title":"13.Toggle Method","level":"1.14","depth":1,"path":"13.md","ref":"13.md","articles":[]},"previous":{"title":"11.Get TODO by id ","level":"1.12","depth":1,"path":"11.md","ref":"11.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"12.md","mtime":"2019-01-25T07:45:20.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-25T00:06:19.281Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>3. Install Bootstrap 4 dan konfigurasi · GitBook</title>
+        <title>3. Form TODO, DatePicker · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -120,7 +120,7 @@
                 <a href="02.html">
             
                     
-                    2. Membuat Project Baru dan Konfigurasi
+                    2. Membuat project baru, Install Bootstrap, Install @ng-bootstrap
             
                 </a>
             
@@ -133,7 +133,7 @@
                 <a href="03.html">
             
                     
-                    3. Install Bootstrap 4 dan konfigurasi
+                    3. Form TODO, DatePicker
             
                 </a>
             
@@ -146,7 +146,7 @@
                 <a href="04.html">
             
                     
-                    4. Membuat Component Baru
+                    4. TODO Table
             
                 </a>
             
@@ -159,7 +159,7 @@
                 <a href="05.html">
             
                     
-                    5. Routes
+                    5. TODO Class
             
                 </a>
             
@@ -172,7 +172,7 @@
                 <a href="06.html">
             
                     
-                    6. @ng-bootstrap
+                    6. TODO Service
             
                 </a>
             
@@ -185,7 +185,7 @@
                 <a href="07.html">
             
                     
-                    7. navbar
+                    7. Method di TODO Service
             
                 </a>
             
@@ -198,7 +198,7 @@
                 <a href="08.html">
             
                     
-                    8. Develop dengan Firebase
+                    8. Save Todo di Local Storage
             
                 </a>
             
@@ -211,7 +211,7 @@
                 <a href="09.html">
             
                     
-                    9. Auth with Google Login
+                    9. Method addTodo
             
                 </a>
             
@@ -224,7 +224,7 @@
                 <a href="10.html">
             
                     
-                    10. Logout
+                    10.Menampilkan isi TODO
             
                 </a>
             
@@ -237,7 +237,7 @@
                 <a href="11.html">
             
                     
-                    11. Menampilkan User Aktif
+                    11.Get TODO by id 
             
                 </a>
             
@@ -250,7 +250,7 @@
                 <a href="12.html">
             
                     
-                    12. Menggunakan pipe untuk async
+                    12.Update TODO
             
                 </a>
             
@@ -263,7 +263,7 @@
                 <a href="13.html">
             
                     
-                    13. Service
+                    13.Toggle Method
             
                 </a>
             
@@ -535,7 +535,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >3. Install Bootstrap 4 dan konfigurasi</a>
+        <a href="." >3. Form TODO, DatePicker</a>
     </h1>
 </div>
 
@@ -552,82 +552,188 @@
                                 
                                 <h1 id="kemampuan-akhir-yang-direncanakan">Kemampuan Akhir Yang Direncanakan</h1>
 <ul>
-<li>Peserta mampu menginstall bootstrap4 pada angular</li>
+<li>Peserta mampu membuat Form TODO</li>
+<li>peserta mampu membuat datepicker <a href="https://ng-bootstrap.github.io/#/components/datepicker/overview" target="_blank">https://ng-bootstrap.github.io/#/components/datepicker/overview</a></li>
 </ul>
-<h1 id="percobaan-2-install-bootstrap-4-pada-angular">Percobaan 2 Install bootstrap 4 pada angular</h1>
-<h3 id="instalasi-bootstrap-4">Instalasi bootstrap 4</h3>
+<h1 id="percobaan-membuat-form">Percobaan membuat Form</h1>
 <ul>
-<li>buka terminal <strong>(cat: pastikan proses install di folder oshop)</strong></li>
-<li>ketik kode berikut</li>
+<li>buka file <strong>app.component.html</strong> tambahkan code berikut</li>
 </ul>
-<pre><code>npm i --save bootstrap@4
-</code></pre><ul>
-<li>buka angular.json <strong>(oshop/angular.json)</strong></li>
-<li>tambahkan code berikut pada styles angular.json pada project olshop</li>
-</ul>
-<pre><code>&quot;node_modules/bootstrap/dist/css/bootstrap.min.css&quot;,
-</code></pre><ul>
-<li>sehingga hasil code nya seperti ini</li>
-</ul>
-<pre><code>&quot;styles&quot;: [
-  &quot;node_modules/bootstrap/dist/css/bootstrap.min.css&quot;,
-  &quot;styles.scss&quot;
-]
-</code></pre><ul>
-<li>buka file <strong>app.component.html</strong> <strong>(oshop/app/app.component.html)</strong></li>
-<li>tambahkan code berikut </li>
-</ul>
-<pre><code>&lt;nav class=&quot;navbar navbar-expand-md navbar-dark bg-dark fixed-top&quot;&gt;
-  &lt;a class=&quot;navbar-brand&quot; href=&quot;#&quot;&gt;Navbar&lt;/a&gt;
-  &lt;button class=&quot;navbar-toggler&quot; type=&quot;button&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#navbarsExampleDefault&quot; aria-controls=&quot;navbarsExampleDefault&quot; aria-expanded=&quot;false&quot; aria-label=&quot;Toggle navigation&quot;&gt;
-    &lt;span class=&quot;navbar-toggler-icon&quot;&gt;&lt;/span&gt;
-  &lt;/button&gt;
+<pre><code>&lt;div class=&quot;container&quot;&gt;
+  &lt;div class=&quot;row&quot;&gt;&lt;h2 class=&quot;title&quot;&gt;ToDO Application&lt;/h2&gt;&lt;/div&gt;
 
-  &lt;div class=&quot;collapse navbar-collapse&quot; id=&quot;navbarsExampleDefault&quot;&gt;
-    &lt;ul class=&quot;navbar-nav mr-auto&quot;&gt;
-      &lt;li class=&quot;nav-item active&quot;&gt;
-        &lt;a class=&quot;nav-link&quot; href=&quot;#&quot;&gt;Home &lt;span class=&quot;sr-only&quot;&gt;(current)&lt;/span&gt;&lt;/a&gt;
-      &lt;/li&gt;
-      &lt;li class=&quot;nav-item&quot;&gt;
-        &lt;a class=&quot;nav-link&quot; href=&quot;#&quot;&gt;Link&lt;/a&gt;
-      &lt;/li&gt;
-      &lt;li class=&quot;nav-item&quot;&gt;
-        &lt;a class=&quot;nav-link disabled&quot; href=&quot;#&quot;&gt;Disabled&lt;/a&gt;
-      &lt;/li&gt;
-      &lt;li class=&quot;nav-item dropdown&quot;&gt;
-        &lt;a class=&quot;nav-link dropdown-toggle&quot; href=&quot;#&quot; id=&quot;dropdown01&quot; data-toggle=&quot;dropdown&quot; aria-haspopup=&quot;true&quot; aria-expanded=&quot;false&quot;&gt;Dropdown&lt;/a&gt;
-        &lt;div class=&quot;dropdown-menu&quot; aria-labelledby=&quot;dropdown01&quot;&gt;
-          &lt;a class=&quot;dropdown-item&quot; href=&quot;#&quot;&gt;Action&lt;/a&gt;
-          &lt;a class=&quot;dropdown-item&quot; href=&quot;#&quot;&gt;Another action&lt;/a&gt;
-          &lt;a class=&quot;dropdown-item&quot; href=&quot;#&quot;&gt;Something else here&lt;/a&gt;
+  &lt;div class=&quot;row&quot;&gt;
+    &lt;form class=&quot;form-inline&quot;&gt;
+      &lt;div class=&quot;form-row&quot;&gt;
+        &lt;div class=&quot;col-md-5&quot;&gt;
+          &lt;input type=&quot;text&quot; name=&quot;&quot; value=&quot;&quot; placeholder=&quot;ToDo Title&quot; /&gt;
         &lt;/div&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-    &lt;form class=&quot;form-inline my-2 my-lg-0&quot;&gt;
-      &lt;input class=&quot;form-control mr-sm-2&quot; type=&quot;text&quot; placeholder=&quot;Search&quot; aria-label=&quot;Search&quot;&gt;
-      &lt;button class=&quot;btn btn-secondary my-2 my-sm-0&quot; type=&quot;submit&quot;&gt;Search&lt;/button&gt;
+        &lt;div class=&quot;col-md-5&quot;&gt;&lt;input type=&quot;date&quot; /&gt;&lt;/div&gt;
+        &lt;div class=&quot;col-md-2&quot;&gt;&lt;button class=&quot;btn btn-primary&quot;&gt;Add&lt;/button&gt;&lt;/div&gt;
+      &lt;/div&gt;
     &lt;/form&gt;
   &lt;/div&gt;
-&lt;/nav&gt;
-
-&lt;div class=&quot;container&quot;&gt;
-
-  &lt;div class=&quot;starter-template&quot;&gt;
-    &lt;h1&gt;Bootstrap starter template&lt;/h1&gt;
-    &lt;p class=&quot;lead&quot;&gt;Use this document as a way to quickly start any new project.&lt;br&gt; All you get is this text and a mostly barebones HTML document.&lt;/p&gt;
-  &lt;/div&gt;
-&lt;/div&gt;&lt;!-- /.container --&gt;
+&lt;/div&gt;
 </code></pre><ul>
-<li><p>untuk melihat hasilnya ketik <strong>ng serve</strong> -&gt;img4.png
-<img src="image/chapter1/img4.png" alt=""></p>
+<li>jika berhasil maka hasilnya seperti pada gambar berikut
+<img src="image/chapter1/img6.png" alt=""></li>
+</ul>
+<h2 id="menambahkan-datepicker">menambahkan datepicker</h2>
+<ul>
+<li><a href="https://ng-bootstrap.github.io/#/components/datepicker/overview" target="_blank">https://ng-bootstrap.github.io/#/components/datepicker/overview</a></li>
+<li>copy code datepicker berikut  dan paste ke <strong>app.component.html</strong></li>
+</ul>
+<pre><code>&lt;div class=&quot;form-group&quot;&gt;
+    &lt;div class=&quot;input-group&quot;&gt;
+      &lt;input class=&quot;form-control&quot; placeholder=&quot;yyyy-mm-dd&quot;
+             name=&quot;dp&quot; [(ngModel)]=&quot;model&quot; ngbDatepicker #d=&quot;ngbDatepicker&quot;&gt;
+      &lt;div class=&quot;input-group-append&quot;&gt;
+        &lt;button class=&quot;btn btn-outline-secondary calendar&quot; (click)=&quot;d.toggle()&quot; type=&quot;button&quot;&gt;&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+</code></pre><ul>
+<li>buka file <strong>app.component.html</strong> dan modifikasi menjadi seperti pada gambar berikut</li>
+</ul>
+<pre><code>&lt;div class=&quot;container&quot;&gt;
+  &lt;div class=&quot;row&quot;&gt;&lt;h2 class=&quot;title&quot;&gt;ToDO Application&lt;/h2&gt;&lt;/div&gt;
+
+  &lt;div class=&quot;row&quot;&gt;
+    &lt;form class=&quot;form-inline&quot;&gt;
+      &lt;div class=&quot;form-row&quot;&gt;
+        &lt;div class=&quot;col-md-5&quot;&gt;
+          &lt;input type=&quot;text&quot; name=&quot;title&quot; class=&quot;form-control&quot; placeholder=&quot;ToDo Title&quot; autocomplete=&quot;off&quot;/&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;col-md-5&quot;&gt;
+          &lt;!-- &lt;input type=&quot;date&quot; /&gt; --&gt;
+          &lt;div class=&quot;form-group&quot;&gt;
+              &lt;div class=&quot;input-group&quot;&gt;
+                &lt;input class=&quot;form-control&quot; placeholder=&quot;completion Date&quot;
+                       name=&quot;dp&quot; ngbDatepicker #d=&quot;ngbDatepicker&quot; autocomplete=&quot;off&quot;&gt;
+                &lt;div class=&quot;input-group-append&quot;&gt;
+                  &lt;button class=&quot;btn btn-outline-secondary calendar&quot; (click)=&quot;d.toggle()&quot; type=&quot;button&quot;&gt;
+                    &lt;i class=&quot;fa fa-calendar&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;
+                  &lt;/button&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;col-md-2&quot;&gt;&lt;button class=&quot;btn btn-primary&quot;&gt;Add&lt;/button&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre><ul>
+<li>buka file <strong>app.component.css</strong> tambahkan code berikut </li>
+</ul>
+<pre><code>body {
+    font-size: 15px;
+    color: #343d44;
+    font-family: &apos;segoe-ui&apos;, &apos;open-sans&apos;, tahoma, arial;
+    padding: 0;
+    margin: 0;
+  }
+
+  .container {
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .row {
+    margin: 0 auto;
+    text-align: center;
+    padding: 30px;
+  }
+
+  .title {
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .form-inline {
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  table {
+    border-collapse: separate;
+    border-spacing: 0 5px;
+  }
+
+  thead th {
+    background-color: #007bff;
+    color: white;
+  }
+
+  tbody td {
+    background-color: #eeeeee;
+  }
+
+  tr td:first-child,
+  tr th:first-child {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+  }
+
+  tr td:last-child,
+  tr th:last-child {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+  }
+
+  .btn {
+    cursor: pointer;
+  }
+
+  td {
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .icons button {
+    margin: 0px 5px 0px 5px;
+  }
+
+  .fa-circle-o,
+  .fa-check-circle {
+    color: #007bff;
+  }
+
+  .empty {
+    border: 1px solid red;
+  }
+</code></pre><ul>
+<li><p><a href="https://www.npmjs.com/package/angular-font-awesome" target="_blank">https://www.npmjs.com/package/angular-font-awesome</a> install angular-font-awesome untuk menampillakn fa fa-calender</p>
 </li>
-<li><p>tambahkan code berikut pada <strong>styles.css</strong> <strong>(olshop/src/styles.css)</strong></p>
+<li><p>ketik perintah berikut:</p>
 </li>
 </ul>
-<pre><code>body {padding-top: 80px};
+<pre><code>npm install --save font-awesome angular-font-awesome
 </code></pre><ul>
-<li>sehingga hasilnya menjadi 
-<img src="image/chapter1/img5.png" alt=""></li>
+<li>buka file <strong>app.module.ts</strong> tambahkan code berikut</li>
+</ul>
+<pre><code>//...
+import { AngularFontAwesomeModule } from &apos;angular-font-awesome&apos;;
+@NgModule({
+  //...
+  imports: [
+    //...
+    AngularFontAwesomeModule
+  ],
+  //...
+})
+export class AppModule { }
+</code></pre><ul>
+<li>buka file <strong>angular.json</strong> tambahkan code berikut</li>
+</ul>
+<pre><code> &quot;styles&quot;: [
+              &quot;node_modules/bootstrap/dist/css/bootstrap.min.css&quot;,
+              &quot;node_modules/font-awesome/css/font-awesome.css&quot;,
+              &quot;src/styles.css&quot;
+            ],
+</code></pre><ul>
+<li>jika berhasil maka tampilannya akan seperti pada gambar dibawah ini
+<img src="image/chapter1/img7.png" alt=""></li>
 </ul>
 
                                 
@@ -656,12 +762,12 @@
 
             
                 
-                <a href="02.html" class="navigation navigation-prev " aria-label="Previous page: 2. Membuat Project Baru dan Konfigurasi">
+                <a href="02.html" class="navigation navigation-prev " aria-label="Previous page: 2. Membuat project baru, Install Bootstrap, Install @ng-bootstrap">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="04.html" class="navigation navigation-next " aria-label="Next page: 4. Membuat Component Baru">
+                <a href="04.html" class="navigation navigation-next " aria-label="Next page: 4. TODO Table">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -672,7 +778,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"3. Install Bootstrap 4 dan konfigurasi","level":"1.4","depth":1,"next":{"title":"4. Membuat Component Baru","level":"1.5","depth":1,"path":"04.md","ref":"04.md","articles":[]},"previous":{"title":"2. Membuat Project Baru dan Konfigurasi","level":"1.3","depth":1,"path":"02.md","ref":"02.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"03.md","mtime":"2019-01-17T12:08:48.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-23T04:49:43.221Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"3. Form TODO, DatePicker","level":"1.4","depth":1,"next":{"title":"4. TODO Table","level":"1.5","depth":1,"path":"04.md","ref":"04.md","articles":[]},"previous":{"title":"2. Membuat project baru, Install Bootstrap, Install @ng-bootstrap","level":"1.3","depth":1,"path":"02.md","ref":"02.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"03.md","mtime":"2019-01-24T15:21:10.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-25T00:06:19.281Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

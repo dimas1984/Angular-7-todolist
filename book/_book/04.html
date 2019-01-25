@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>4. Membuat Component Baru · GitBook</title>
+        <title>4. TODO Table · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -120,7 +120,7 @@
                 <a href="02.html">
             
                     
-                    2. Membuat Project Baru dan Konfigurasi
+                    2. Membuat project baru, Install Bootstrap, Install @ng-bootstrap
             
                 </a>
             
@@ -133,7 +133,7 @@
                 <a href="03.html">
             
                     
-                    3. Install Bootstrap 4 dan konfigurasi
+                    3. Form TODO, DatePicker
             
                 </a>
             
@@ -146,7 +146,7 @@
                 <a href="04.html">
             
                     
-                    4. Membuat Component Baru
+                    4. TODO Table
             
                 </a>
             
@@ -159,7 +159,7 @@
                 <a href="05.html">
             
                     
-                    5. Routes
+                    5. TODO Class
             
                 </a>
             
@@ -172,7 +172,7 @@
                 <a href="06.html">
             
                     
-                    6. @ng-bootstrap
+                    6. TODO Service
             
                 </a>
             
@@ -185,7 +185,7 @@
                 <a href="07.html">
             
                     
-                    7. navbar
+                    7. Method di TODO Service
             
                 </a>
             
@@ -198,7 +198,7 @@
                 <a href="08.html">
             
                     
-                    8. Develop dengan Firebase
+                    8. Save Todo di Local Storage
             
                 </a>
             
@@ -211,7 +211,7 @@
                 <a href="09.html">
             
                     
-                    9. Auth with Google Login
+                    9. Method addTodo
             
                 </a>
             
@@ -224,7 +224,7 @@
                 <a href="10.html">
             
                     
-                    10. Logout
+                    10.Menampilkan isi TODO
             
                 </a>
             
@@ -237,7 +237,7 @@
                 <a href="11.html">
             
                     
-                    11. Menampilkan User Aktif
+                    11.Get TODO by id 
             
                 </a>
             
@@ -250,7 +250,7 @@
                 <a href="12.html">
             
                     
-                    12. Menggunakan pipe untuk async
+                    12.Update TODO
             
                 </a>
             
@@ -263,7 +263,7 @@
                 <a href="13.html">
             
                     
-                    13. Service
+                    13.Toggle Method
             
                 </a>
             
@@ -535,7 +535,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >4. Membuat Component Baru</a>
+        <a href="." >4. TODO Table</a>
     </h1>
 </div>
 
@@ -552,102 +552,84 @@
                                 
                                 <h1 id="kemampuan-akhir-yang-direncanakan">Kemampuan Akhir Yang Direncanakan</h1>
 <ul>
-<li>Peserta mampu membuat sebuah component</li>
+<li>Peserta mampu membuat Table untuk TODO</li>
 </ul>
-<h1 id="percobaan-3-membuat-component-baru">Percobaan 3 Membuat Component baru</h1>
-<h3 id="membuat-component-bs-navbar">Membuat component bs-navbar</h3>
+<h1 id="percobaan-membuat-table-todo">Percobaan Membuat table TODO</h1>
 <ul>
-<li>langkah pertama memisahkan antara container dengan navbar pada app.component sehingga membutuhkan sebuah component baru</li>
-<li>untuk membuat sebuah component lakukan code berikut:<pre><code>ng g c bs-navbar
-</code></pre></li>
-<li>keterangan <ul>
-<li>g = generate</li>
-<li>c = component</li>
-<li>bs-navbar = nama folder yang akan kita generate</li>
-</ul>
-</li>
-<li>jika berhasil membuat component maka selanjutnya copy bagian navbar pada <strong>app.component.ts</strong>  ke <strong>bs-navbar.component.html</strong> pada <strong>(oshop/src/bs-navbar/bs-navbar.component.html)</strong> seperti code dibawah ini</li>
-</ul>
-<pre><code>&lt;nav class=&quot;navbar navbar-expand-md navbar-dark bg-dark fixed-top&quot;&gt;
-  &lt;a class=&quot;navbar-brand&quot; href=&quot;#&quot;&gt;Navbar&lt;/a&gt;
-  &lt;button class=&quot;navbar-toggler&quot; type=&quot;button&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#navbarsExampleDefault&quot; aria-controls=&quot;navbarsExampleDefault&quot; aria-expanded=&quot;false&quot; aria-label=&quot;Toggle navigation&quot;&gt;
-    &lt;span class=&quot;navbar-toggler-icon&quot;&gt;&lt;/span&gt;
-  &lt;/button&gt;
-
-  &lt;div class=&quot;collapse navbar-collapse&quot; id=&quot;navbarsExampleDefault&quot;&gt;
-    &lt;ul class=&quot;navbar-nav mr-auto&quot;&gt;
-      &lt;li class=&quot;nav-item active&quot;&gt;
-        &lt;a class=&quot;nav-link&quot; href=&quot;#&quot;&gt;Home &lt;span class=&quot;sr-only&quot;&gt;(current)&lt;/span&gt;&lt;/a&gt;
-      &lt;/li&gt;
-      &lt;li class=&quot;nav-item&quot;&gt;
-        &lt;a class=&quot;nav-link&quot; href=&quot;#&quot;&gt;Link&lt;/a&gt;
-      &lt;/li&gt;
-      &lt;li class=&quot;nav-item&quot;&gt;
-        &lt;a class=&quot;nav-link disabled&quot; href=&quot;#&quot;&gt;Disabled&lt;/a&gt;
-      &lt;/li&gt;
-      &lt;li class=&quot;nav-item dropdown&quot;&gt;
-        &lt;a class=&quot;nav-link dropdown-toggle&quot; href=&quot;#&quot; id=&quot;dropdown01&quot; data-toggle=&quot;dropdown&quot; aria-haspopup=&quot;true&quot; aria-expanded=&quot;false&quot;&gt;Dropdown&lt;/a&gt;
-        &lt;div class=&quot;dropdown-menu&quot; aria-labelledby=&quot;dropdown01&quot;&gt;
-          &lt;a class=&quot;dropdown-item&quot; href=&quot;#&quot;&gt;Action&lt;/a&gt;
-          &lt;a class=&quot;dropdown-item&quot; href=&quot;#&quot;&gt;Another action&lt;/a&gt;
-          &lt;a class=&quot;dropdown-item&quot; href=&quot;#&quot;&gt;Something else here&lt;/a&gt;
-        &lt;/div&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-    &lt;form class=&quot;form-inline my-2 my-lg-0&quot;&gt;
-      &lt;input class=&quot;form-control mr-sm-2&quot; type=&quot;text&quot; placeholder=&quot;Search&quot; aria-label=&quot;Search&quot;&gt;
-      &lt;button class=&quot;btn btn-secondary my-2 my-sm-0&quot; type=&quot;submit&quot;&gt;Search&lt;/button&gt;
-    &lt;/form&gt;
-  &lt;/div&gt;
-&lt;/nav&gt;
-</code></pre><ul>
-<li>sehingga pada <strong>app.component.html</strong> hanya berisi code berikut </li>
+<li>buka file <strong>app.component.html</strong> tambahkan class table</li>
 </ul>
 <pre><code>&lt;div class=&quot;container&quot;&gt;
+  &lt;div class=&quot;row&quot;&gt;&lt;h2 class=&quot;title&quot;&gt;ToDO Application&lt;/h2&gt;&lt;/div&gt;
 
-  &lt;div class=&quot;starter-template&quot;&gt;
-    &lt;h1&gt;Bootstrap starter template&lt;/h1&gt;
-    &lt;p class=&quot;lead&quot;&gt;Use this document as a way to quickly start any new project.&lt;br&gt; All you get is this text and a mostly barebones HTML document.&lt;/p&gt;
+  &lt;div class=&quot;row&quot;&gt;
+    &lt;form class=&quot;form-inline&quot;&gt;
+      &lt;div class=&quot;form-row&quot;&gt;
+        &lt;div class=&quot;col-md-5&quot;&gt;
+          &lt;input
+            type=&quot;text&quot;
+            name=&quot;title&quot;
+            class=&quot;form-control&quot;
+            placeholder=&quot;ToDo Title&quot;
+            autocomplete=&quot;off&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;col-md-5&quot;&gt;
+          &lt;!-- &lt;input type=&quot;date&quot; /&gt; --&gt;
+          &lt;div class=&quot;form-group&quot;&gt;
+            &lt;div class=&quot;input-group&quot;&gt;
+              &lt;input
+                class=&quot;form-control&quot;
+                placeholder=&quot;completion Date&quot;
+                name=&quot;dp&quot;
+                ngbDatepicker
+                #d=&quot;ngbDatepicker&quot;
+                autocomplete=&quot;off&quot;
+              /&gt;
+              &lt;div class=&quot;input-group-append&quot;&gt;
+                &lt;button
+                  class=&quot;btn btn-outline-secondary calendar&quot;
+                  (click)=&quot;d.toggle()&quot;
+                  type=&quot;button&quot;
+                &gt;
+                  &lt;i class=&quot;fa fa-calendar&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;
+                &lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;col-md-2&quot;&gt;&lt;button class=&quot;btn btn-primary&quot;&gt;Add&lt;/button&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;
   &lt;/div&gt;
-&lt;/div&gt;&lt;!-- /.container --&gt;
+
+  &lt;table class=&quot;table&quot;&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;&lt;/th&gt;
+        &lt;th&gt;Title&lt;/th&gt;
+        &lt;th&gt;Date&lt;/th&gt;
+        &lt;th&gt;Status&lt;/th&gt;
+        &lt;th&gt;Options&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;Dian Inggit&lt;/td&gt;
+        &lt;td&gt;05-10-1985&lt;/td&gt;
+        &lt;td&gt;not complete&lt;/td&gt;
+        &lt;td class=&quot;icons&quot;&gt;
+          &lt;button class=&quot;btn btn-success&quot;&gt;&lt;i class=&quot;fa fa-check&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+          &lt;button class=&quot;btn btn-primary&quot;&gt;&lt;i class=&quot;fa fa-pencil&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+          &lt;button class=&quot;btn btn-danger&quot;&gt;&lt;i class=&quot;fa fa-trash&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
 </code></pre><ul>
-<li>langkah berikutnya mengkonfigurasi pada <strong>bs-navbar.component.ts</strong></li>
-<li>rubah <strong>selector</strong> pada <strong>bs-navbar.component.ts</strong> pada <strong>(oshop/src/bs-navbar/bs-navbar.component.ts)</strong> menjadi  <strong>bs-navbar</strong> sehingga keseluruhan code pada <strong>bs-navbar.component.ts</strong> </li>
-</ul>
-<pre><code>import { Component, OnInit } from &apos;@angular/core&apos;;
-
-@Component({
-  selector: &apos;bs-navbar&apos;,
-  templateUrl: &apos;./bs-navbar.component.html&apos;,
-  styleUrls: [&apos;./bs-navbar.component.css&apos;]
-})
-export class BsNavbarComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-}
-</code></pre><ul>
-<li>langkah berikutnya setelah kita rubah selector <strong>selector</strong> pada <strong>bs-navbar.component.ts</strong> maka selanjutnya tambahkan code berikut pada <strong>app.component.ts</strong></li>
-</ul>
-<pre><code>&lt;bs-navbar&gt;&lt;/bs-navbar&gt;
-</code></pre><ul>
-<li>sehingga code secara keseluruhan pada  <strong>app.component.ts</strong></li>
-</ul>
-<pre><code>&lt;bs-navbar&gt;&lt;/bs-navbar&gt;
-
-&lt;div class=&quot;container&quot;&gt;
-
-  &lt;div class=&quot;starter-template&quot;&gt;
-    &lt;h1&gt;Bootstrap starter template&lt;/h1&gt;
-    &lt;p class=&quot;lead&quot;&gt;Use this document as a way to quickly start any new project.&lt;br&gt; All you get is this text and a mostly barebones HTML document.&lt;/p&gt;
-  &lt;/div&gt;
-&lt;/div&gt;&lt;!-- /.container --&gt;
-</code></pre><ul>
-<li>jika berhasil maka tampilannya seperti pada gambar
-<img src="image/chapter1/img5.png" alt=""></li>
+<li>jika berhasil maka hasilnya seperti pada gambar berikut
+<img src="image/chapter1/img8.png" alt=""></li>
 </ul>
 
                                 
@@ -676,12 +658,12 @@ export class BsNavbarComponent implements OnInit {
 
             
                 
-                <a href="03.html" class="navigation navigation-prev " aria-label="Previous page: 3. Install Bootstrap 4 dan konfigurasi">
+                <a href="03.html" class="navigation navigation-prev " aria-label="Previous page: 3. Form TODO, DatePicker">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="05.html" class="navigation navigation-next " aria-label="Next page: 5. Routes">
+                <a href="05.html" class="navigation navigation-next " aria-label="Next page: 5. TODO Class">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -692,7 +674,7 @@ export class BsNavbarComponent implements OnInit {
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"4. Membuat Component Baru","level":"1.5","depth":1,"next":{"title":"5. Routes","level":"1.6","depth":1,"path":"05.md","ref":"05.md","articles":[]},"previous":{"title":"3. Install Bootstrap 4 dan konfigurasi","level":"1.4","depth":1,"path":"03.md","ref":"03.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"04.md","mtime":"2019-01-17T12:31:46.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-23T04:49:43.221Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"4. TODO Table","level":"1.5","depth":1,"next":{"title":"5. TODO Class","level":"1.6","depth":1,"path":"05.md","ref":"05.md","articles":[]},"previous":{"title":"3. Form TODO, DatePicker","level":"1.4","depth":1,"path":"03.md","ref":"03.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"04.md","mtime":"2019-01-24T23:49:02.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-25T00:06:19.281Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

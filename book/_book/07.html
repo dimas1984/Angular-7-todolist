@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>7. navbar · GitBook</title>
+        <title>7. Method di TODO Service · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -120,7 +120,7 @@
                 <a href="02.html">
             
                     
-                    2. Membuat Project Baru dan Konfigurasi
+                    2. Membuat project baru, Install Bootstrap, Install @ng-bootstrap
             
                 </a>
             
@@ -133,7 +133,7 @@
                 <a href="03.html">
             
                     
-                    3. Install Bootstrap 4 dan konfigurasi
+                    3. Form TODO, DatePicker
             
                 </a>
             
@@ -146,7 +146,7 @@
                 <a href="04.html">
             
                     
-                    4. Membuat Component Baru
+                    4. TODO Table
             
                 </a>
             
@@ -159,7 +159,7 @@
                 <a href="05.html">
             
                     
-                    5. Routes
+                    5. TODO Class
             
                 </a>
             
@@ -172,7 +172,7 @@
                 <a href="06.html">
             
                     
-                    6. @ng-bootstrap
+                    6. TODO Service
             
                 </a>
             
@@ -185,7 +185,7 @@
                 <a href="07.html">
             
                     
-                    7. navbar
+                    7. Method di TODO Service
             
                 </a>
             
@@ -198,7 +198,7 @@
                 <a href="08.html">
             
                     
-                    8. Develop dengan Firebase
+                    8. Save Todo di Local Storage
             
                 </a>
             
@@ -211,7 +211,7 @@
                 <a href="09.html">
             
                     
-                    9. Auth with Google Login
+                    9. Method addTodo
             
                 </a>
             
@@ -224,7 +224,7 @@
                 <a href="10.html">
             
                     
-                    10. Logout
+                    10.Menampilkan isi TODO
             
                 </a>
             
@@ -237,7 +237,7 @@
                 <a href="11.html">
             
                     
-                    11. Menampilkan User Aktif
+                    11.Get TODO by id 
             
                 </a>
             
@@ -250,7 +250,7 @@
                 <a href="12.html">
             
                     
-                    12. Menggunakan pipe untuk async
+                    12.Update TODO
             
                 </a>
             
@@ -263,7 +263,7 @@
                 <a href="13.html">
             
                     
-                    13. Service
+                    13.Toggle Method
             
                 </a>
             
@@ -535,7 +535,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >7. navbar</a>
+        <a href="." >7. Method di TODO Service</a>
     </h1>
 </div>
 
@@ -552,79 +552,55 @@
                                 
                                 <h1 id="kemampuan-akhir-yang-direncanakan">Kemampuan Akhir Yang Direncanakan</h1>
 <ul>
-<li>Peserta mampu merapikan Navbar</li>
+<li>Peserta mampu membuat method pada TODO service</li>
 </ul>
-<h1 id="percobaan-6-merapikan-navbar">Percobaan 6 Merapikan Navbar</h1>
+<h1 id="percobaan-membuat-method-pada-todo-service">Percobaan membuat method pada TODO service</h1>
 <ul>
-<li>buka <strong>bs-navbar.component.html</strong> dan rubah codenya menjadi berikut (menu search dan home dihapus) :</li>
+<li>buat sebuah method dengan nama <strong>addTodos</strong> di <strong>todo-data.service.ts</strong></li>
 </ul>
-<pre><code>&lt;nav class=&quot;navbar navbar-expand-md navbar-dark bg-dark fixed-top&quot;&gt;
-  &lt;a class=&quot;navbar-brand&quot; routerLink=&quot;/&quot;&gt;O&lt;/a&gt;
-  &lt;button class=&quot;navbar-toggler&quot; type=&quot;button&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#navbarsExampleDefault&quot; aria-controls=&quot;navbarsExampleDefault&quot; aria-expanded=&quot;false&quot; aria-label=&quot;Toggle navigation&quot;&gt;
-    &lt;span class=&quot;navbar-toggler-icon&quot;&gt;&lt;/span&gt;
-  &lt;/button&gt;
-
-  &lt;div class=&quot;collapse navbar-collapse&quot; id=&quot;navbarsExampleDefault&quot;&gt;
-    &lt;ul class=&quot;navbar-nav mr-auto&quot;&gt;
-
-      &lt;li class=&quot;nav-item&quot;&gt;
-        &lt;!-- 2.tambahkan routerlink --&gt;
-        &lt;a class=&quot;nav-link&quot; routerLink=&quot;shopping-chart&quot;&gt;Shopping Chart&lt;/a&gt;
-      &lt;/li&gt;
-      &lt;li class=&quot;nav-item&quot;&gt;
-        &lt;a class=&quot;nav-link disabled&quot; href=&quot;#&quot;&gt;Disabled&lt;/a&gt;
-      &lt;/li&gt;
-
-      &lt;!-- edit dropdown --&gt;
-      &lt;li ngbDropdown class=&quot;nav-item dropdown show&quot;&gt;
-        &lt;a ngbDropdownToggle class=&quot;nav-link dropdown-toggle&quot; id=&quot;dropdown01&quot; data-toggle=&quot;dropdown&quot; aria-haspopup=&quot;true&quot; aria-expanded=&quot;false&quot;&gt;Username&lt;/a&gt;
-        &lt;div ngbDropdownMenu class=&quot;dropdown-menu show&quot; aria-labelledby=&quot;dropdown01&quot;&gt;
-          &lt;!-- rubah code seperti dibawah ini --&gt;
-          &lt;a class=&quot;dropdown-item&quot; routerLink=&quot;orders&quot;&gt;My Orders&lt;/a&gt;
-          &lt;a class=&quot;dropdown-item&quot; routerLink=&quot;/admin/admin-orders&quot;&gt;Manage Orders&lt;/a&gt;
-          &lt;a class=&quot;dropdown-item&quot; routerLink=&quot;/admin/admin-products&quot;&gt;Manage Products&lt;/a&gt;
-          &lt;a class=&quot;dropdown-item&quot;&gt; Log Out&lt;/a&gt;
-        &lt;/div&gt;
-      &lt;/li&gt;
-
-    &lt;/ul&gt;
-
-  &lt;/div&gt;
-&lt;/nav&gt;
+<pre><code>addTodos(todo:Todo ):TodoDataService{
+    if (!todo.id){
+      todo.id=++this.lastid;
+    }
+    const todos=this.getAllTodos();
+    todos.push(todo);
+    return this;
+  }
 </code></pre><ul>
-<li>jika berhasil maka tampilnya akan seperti pada gambar berikut :</li>
+<li>sehingga keseluruhan codenya menjadi seperti berikut</li>
 </ul>
-<p><img src="image/chapter1/img9.png" alt=""></p>
-<ul>
-<li>buka file <strong>bs-navbar.component.css</strong> tambahkan code berikut:</li>
-</ul>
-<pre><code>.dropdown-toggle{
-    cursor:pointer;
+<pre><code>import { Injectable } from &apos;@angular/core&apos;;
+import { Todo } from &apos;../class/todo&apos;;
+
+@Injectable({
+  providedIn: &apos;root&apos;
+})
+export class TodoDataService {
+
+  lastid=0;
+  todos:Todo[]=[]
+
+  constructor() { }
+
+  addTodos(todo:Todo ):TodoDataService{
+    if (!todo.id){
+      todo.id=++this.lastid;
+    }
+    const todos=this.getAllTodos();
+    todos.push(todo);
+    return this;
+  }
+
+  getAllTodos(){
+    const storageItem = JSON.parse(window.localStorage.getItem(&apos;app-todos&apos;));
+    if (storageItem===null){
+      return [];
+    }else{
+      return storageItem.todos;
+    }
+  }
+
 }
-</code></pre><ul>
-<li><p>jika pada saat kita memilih <strong>myorder</strong> pada menu dropdown tidak terjadi apa berbeda dengan ketika klik menu <strong>manage order</strong> hal ini dikarenakan belum ditambahkan path pada <strong>app.component.ts</strong></p>
-</li>
-<li><p>Buka file <strong>app.component.ts</strong> dan tambahkan path berikut pada <strong>routerModule</strong></p>
-</li>
-</ul>
-<pre><code>{path:&apos;orders&apos;,component:MyOrdersComponent},
-</code></pre><ul>
-<li>sehingga <strong>routerModule</strong> nya menjadi </li>
-</ul>
-<pre><code>RouterModule.forRoot(
-      [
-        {path:&apos;&apos;,component:HomeComponent},
-        {path:&apos;products&apos;,component:ProductsComponent},
-        {path:&apos;shopping-chart&apos;,component:ShoppingChartComponent},
-        {path:&apos;check-out&apos;,component:CheckOutComponent},
-        {path:&apos;order-success&apos;,component:OrderSuccessComponent},
-        {path:&apos;orders&apos;,component:MyOrdersComponent},
-        {path:&apos;login&apos;,component:LoginComponent},
-        {path:&apos;admin/admin-products&apos;,component:AdminProductsComponent},
-        {path:&apos;admin/admin-orders&apos;,component:AdminOrdersComponent},
-
-      ]
-    )
 </code></pre>
                                 
                                 </section>
@@ -652,12 +628,12 @@
 
             
                 
-                <a href="06.html" class="navigation navigation-prev " aria-label="Previous page: 6. @ng-bootstrap">
+                <a href="06.html" class="navigation navigation-prev " aria-label="Previous page: 6. TODO Service">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="08.html" class="navigation navigation-next " aria-label="Next page: 8. Develop dengan Firebase">
+                <a href="08.html" class="navigation navigation-next " aria-label="Next page: 8. Save Todo di Local Storage">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -668,7 +644,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"7. navbar","level":"1.8","depth":1,"next":{"title":"8. Develop dengan Firebase","level":"1.9","depth":1,"path":"08.md","ref":"08.md","articles":[]},"previous":{"title":"6. @ng-bootstrap","level":"1.7","depth":1,"path":"06.md","ref":"06.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"07.md","mtime":"2019-01-17T22:52:36.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-23T04:49:43.221Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"7. Method di TODO Service","level":"1.8","depth":1,"next":{"title":"8. Save Todo di Local Storage","level":"1.9","depth":1,"path":"08.md","ref":"08.md","articles":[]},"previous":{"title":"6. TODO Service","level":"1.7","depth":1,"path":"06.md","ref":"06.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"07.md","mtime":"2019-01-25T01:17:57.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-25T00:06:19.281Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

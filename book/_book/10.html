@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>10. Logout · GitBook</title>
+        <title>10.Menampilkan isi TODO · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -120,7 +120,7 @@
                 <a href="02.html">
             
                     
-                    2. Membuat Project Baru dan Konfigurasi
+                    2. Membuat project baru, Install Bootstrap, Install @ng-bootstrap
             
                 </a>
             
@@ -133,7 +133,7 @@
                 <a href="03.html">
             
                     
-                    3. Install Bootstrap 4 dan konfigurasi
+                    3. Form TODO, DatePicker
             
                 </a>
             
@@ -146,7 +146,7 @@
                 <a href="04.html">
             
                     
-                    4. Membuat Component Baru
+                    4. TODO Table
             
                 </a>
             
@@ -159,7 +159,7 @@
                 <a href="05.html">
             
                     
-                    5. Routes
+                    5. TODO Class
             
                 </a>
             
@@ -172,7 +172,7 @@
                 <a href="06.html">
             
                     
-                    6. @ng-bootstrap
+                    6. TODO Service
             
                 </a>
             
@@ -185,7 +185,7 @@
                 <a href="07.html">
             
                     
-                    7. navbar
+                    7. Method di TODO Service
             
                 </a>
             
@@ -198,7 +198,7 @@
                 <a href="08.html">
             
                     
-                    8. Develop dengan Firebase
+                    8. Save Todo di Local Storage
             
                 </a>
             
@@ -211,7 +211,7 @@
                 <a href="09.html">
             
                     
-                    9. Auth with Google Login
+                    9. Method addTodo
             
                 </a>
             
@@ -224,7 +224,7 @@
                 <a href="10.html">
             
                     
-                    10. Logout
+                    10.Menampilkan isi TODO
             
                 </a>
             
@@ -237,7 +237,7 @@
                 <a href="11.html">
             
                     
-                    11. Menampilkan User Aktif
+                    11.Get TODO by id 
             
                 </a>
             
@@ -250,7 +250,7 @@
                 <a href="12.html">
             
                     
-                    12. Menggunakan pipe untuk async
+                    12.Update TODO
             
                 </a>
             
@@ -263,7 +263,7 @@
                 <a href="13.html">
             
                     
-                    13. Service
+                    13.Toggle Method
             
                 </a>
             
@@ -535,7 +535,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >10. Logout</a>
+        <a href="." >10.Menampilkan isi TODO</a>
     </h1>
 </div>
 
@@ -552,68 +552,80 @@
                                 
                                 <h1 id="kemampuan-akhir-yang-direncanakan">Kemampuan Akhir Yang Direncanakan</h1>
 <ul>
-<li>Peserta mampu membuat proses logout</li>
+<li>Peserta mampu menampilkan isi dari inputan TODO yang tersimpan di localstorage</li>
 </ul>
-<h1 id="percobaan-9-logout">Percobaan 9 Logout</h1>
+<h1 id="percobaan-view">Percobaan View</h1>
 <ul>
-<li>buka halaman <strong>bs-navbar.component.html</strong> tambahkan function click pada logout, code sbb</li>
+<li>buka file <strong>app.component.ts</strong> tambahkan method get</li>
 </ul>
-<pre><code> &lt;a class=&quot;dropdown-item&quot; (click)=&quot;logout()&quot;&gt; Log Out&lt;/a&gt;
+<pre><code> get todos(){
+    return this.todoService.getAllTodos();
+  }
 </code></pre><ul>
-<li>buka halaman <strong>bs-navbar.component.ts</strong> buat function click pada <strong>bs-navbar.component.ts</strong> , code sbb</li>
+<li>sehingga keseluruhan code pada <strong>app.component.ts</strong> seperti berikut</li>
 </ul>
 <pre><code>import { Component } from &apos;@angular/core&apos;;
-import { AngularFireAuth} from &apos;angularfire2/auth&apos;;
+import { Todo } from &apos;./class/todo&apos;;
+import { TodoDataService } from &apos;./services/todo-data.service&apos;;
 
 @Component({
-  selector: &apos;bs-navbar&apos;,
-  templateUrl: &apos;./bs-navbar.component.html&apos;,
-  styleUrls: [&apos;./bs-navbar.component.css&apos;]
+  selector: &apos;app-root&apos;,
+  templateUrl: &apos;./app.component.html&apos;,
+  styleUrls: [&apos;./app.component.css&apos;]
 })
-export class BsNavbarComponent {
+export class AppComponent {
 
-  constructor(private afAuth:AngularFireAuth) { }
+  newTodo:Todo=new Todo();
 
-  logout(){
-    this.afAuth.auth.signOut();
+  constructor( private todoService:TodoDataService){}
+
+  get todos(){
+    return this.todoService.getAllTodos();
+  }
+
+  addTodo(){
+    // console.log(this.newTodo);
+    if(this.newTodo.title &amp;&amp; this.newTodo.date){
+      this.todoService.addTodos(this.newTodo);
+      //cek isi new todo apakah berhasil
+      // console.log(this.newTodo);
+      this.newTodo.title=&apos;&apos;;
+      this.newTodo.date=&apos;&apos;;
+    }
   }
 }
 </code></pre><ul>
-<li>jika kita logout maka tidak ada perubahan, untuk mengetahui perubahan pada saat di logout maka tambahkan code berikut pada <strong>constructor(private afAuth:AngularFireAuth)</strong></li>
+<li>buka file <strong>app.component.html</strong> tambahkan ngif dan ngfor pada <strong>table</strong> </li>
 </ul>
-<pre><code>afAuth.authState.subscribe(x=&gt;console.log(x));
+<pre><code>  &lt;table class=&quot;table&quot; *ngIf=&quot;todos.length&gt;0&quot;&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;&lt;/th&gt;
+        &lt;th&gt;Title&lt;/th&gt;
+        &lt;th&gt;Date&lt;/th&gt;
+        &lt;th&gt;Status&lt;/th&gt;
+        &lt;th&gt;Options&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr *ngFor=&quot;let todo of todos&quot;&gt;
+        &lt;td&gt;&lt;/td&gt;
+        &lt;td&gt;{{todo.title}}&lt;/td&gt;
+        &lt;td&gt;{{todo.date.day}}-{{todo.date.month}}-{{todo.date.year}}&lt;/td&gt;
+        &lt;td *ngIf=&quot;!todo.complete&quot;&gt; not complete&lt;/td&gt;
+        &lt;td *ngIf=&quot;todo.complete&quot;&gt; complete&lt;/td&gt;
+        &lt;td class=&quot;icons&quot;&gt;
+          &lt;button class=&quot;btn btn-success&quot;&gt;&lt;i class=&quot;fa fa-check&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+          &lt;button class=&quot;btn btn-primary&quot;&gt;&lt;i class=&quot;fa fa-pencil&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+          &lt;button class=&quot;btn btn-danger&quot;&gt;&lt;i class=&quot;fa fa-trash&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
 </code></pre><ul>
-<li>sehingga hasil keseluruhan codenya sebagai berikut</li>
+<li>jika benar maka akan seperti pada gambar dibawah ini <strong>akan menampilkan isi array pada localstorage</strong></li>
 </ul>
-<pre><code>import { Component } from &apos;@angular/core&apos;;
-import { AngularFireAuth} from &apos;angularfire2/auth&apos;;
-
-@Component({
-  selector: &apos;bs-navbar&apos;,
-  templateUrl: &apos;./bs-navbar.component.html&apos;,
-  styleUrls: [&apos;./bs-navbar.component.css&apos;]
-})
-export class BsNavbarComponent {
-
-  constructor(private afAuth:AngularFireAuth) {
-
-    afAuth.authState.subscribe(x=&gt;console.log(x));
-   }
-  logout(){
-    this.afAuth.auth.signOut();
-  }
-}
-</code></pre><ul>
-<li><p>langkah berikutnya <strong>inspect element</strong> pilih console <strong>terlebih dahulu login with google</strong></p>
-</li>
-<li><p>pada saat kondisi user masih belum logout seperti pada gambar berikut <strong>terdapat beberapa informasi</strong></p>
-</li>
-</ul>
-<p><img src="image/chapter2/img6.png" alt=""></p>
-<ul>
-<li>pada saat kondisi user masih sudah logout seperti pada gambar berikut <strong>null</strong></li>
-</ul>
-<p><img src="image/chapter2/img7.png" alt=""></p>
+<p><img src="image/chapter1/img13.png" alt=""></p>
 
                                 
                                 </section>
@@ -641,12 +653,12 @@ export class BsNavbarComponent {
 
             
                 
-                <a href="09.html" class="navigation navigation-prev " aria-label="Previous page: 9. Auth with Google Login">
+                <a href="09.html" class="navigation navigation-prev " aria-label="Previous page: 9. Method addTodo">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="11.html" class="navigation navigation-next " aria-label="Next page: 11. Menampilkan User Aktif">
+                <a href="11.html" class="navigation navigation-next " aria-label="Next page: 11.Get TODO by id ">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -657,7 +669,7 @@ export class BsNavbarComponent {
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"10. Logout","level":"1.11","depth":1,"next":{"title":"11. Menampilkan User Aktif","level":"1.12","depth":1,"path":"11.md","ref":"11.md","articles":[]},"previous":{"title":"9. Auth with Google Login","level":"1.10","depth":1,"path":"09.md","ref":"09.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"10.md","mtime":"2019-01-18T08:05:58.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-23T04:49:43.221Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"10.Menampilkan isi TODO","level":"1.11","depth":1,"next":{"title":"11.Get TODO by id ","level":"1.12","depth":1,"path":"11.md","ref":"11.md","articles":[]},"previous":{"title":"9. Method addTodo","level":"1.10","depth":1,"path":"09.md","ref":"09.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"10.md","mtime":"2019-01-25T02:53:18.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-25T00:06:19.281Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

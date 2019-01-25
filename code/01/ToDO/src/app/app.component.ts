@@ -23,8 +23,13 @@ export class AppComponent {
       this.todoService.addTodos(this.newTodo);
       //cek isi new todo apakah berhasil
       // console.log(this.newTodo);
+      this.newTodo= new Todo();
       this.newTodo.title='';
       this.newTodo.date='';
     }
+  }
+
+  completeTodo(todo){
+    this.todoService.compoleteTodo(todo);
   }
 }

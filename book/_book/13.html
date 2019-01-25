@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>13. Service · GitBook</title>
+        <title>13.Toggle Method · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -120,7 +120,7 @@
                 <a href="02.html">
             
                     
-                    2. Membuat Project Baru dan Konfigurasi
+                    2. Membuat project baru, Install Bootstrap, Install @ng-bootstrap
             
                 </a>
             
@@ -133,7 +133,7 @@
                 <a href="03.html">
             
                     
-                    3. Install Bootstrap 4 dan konfigurasi
+                    3. Form TODO, DatePicker
             
                 </a>
             
@@ -146,7 +146,7 @@
                 <a href="04.html">
             
                     
-                    4. Membuat Component Baru
+                    4. TODO Table
             
                 </a>
             
@@ -159,7 +159,7 @@
                 <a href="05.html">
             
                     
-                    5. Routes
+                    5. TODO Class
             
                 </a>
             
@@ -172,7 +172,7 @@
                 <a href="06.html">
             
                     
-                    6. @ng-bootstrap
+                    6. TODO Service
             
                 </a>
             
@@ -185,7 +185,7 @@
                 <a href="07.html">
             
                     
-                    7. navbar
+                    7. Method di TODO Service
             
                 </a>
             
@@ -198,7 +198,7 @@
                 <a href="08.html">
             
                     
-                    8. Develop dengan Firebase
+                    8. Save Todo di Local Storage
             
                 </a>
             
@@ -211,7 +211,7 @@
                 <a href="09.html">
             
                     
-                    9. Auth with Google Login
+                    9. Method addTodo
             
                 </a>
             
@@ -224,7 +224,7 @@
                 <a href="10.html">
             
                     
-                    10. Logout
+                    10.Menampilkan isi TODO
             
                 </a>
             
@@ -237,7 +237,7 @@
                 <a href="11.html">
             
                     
-                    11. Menampilkan User Aktif
+                    11.Get TODO by id 
             
                 </a>
             
@@ -250,7 +250,7 @@
                 <a href="12.html">
             
                     
-                    12. Menggunakan pipe untuk async
+                    12.Update TODO
             
                 </a>
             
@@ -263,7 +263,7 @@
                 <a href="13.html">
             
                     
-                    13. Service
+                    13.Toggle Method
             
                 </a>
             
@@ -535,7 +535,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >13. Service</a>
+        <a href="." >13.Toggle Method</a>
     </h1>
 </div>
 
@@ -552,139 +552,203 @@
                                 
                                 <h1 id="kemampuan-akhir-yang-direncanakan">Kemampuan Akhir Yang Direncanakan</h1>
 <ul>
-<li>Peserta mampu membuat service untuk login dan logout</li>
+<li>Peserta mampu membuat method toggle</li>
 </ul>
-<h1 id="percobaan-12-menambahkan-service">Percobaan 12 menambahkan service</h1>
+<h1 id="percobaan-membuat-method-completetodo">Percobaan membuat method CompleteTodo</h1>
 <ul>
-<li>Service atau Provider dalam Angular sendiri sudah diperkenalkan sejak AngularJS v.1.x, dimana service menjadi bagian yang Injectable dari kode Angular sehingga pada prakteknya sering digunakan sebagai pembungkusan (Encapsulation) dari suatu logic. Angular sendiri sudah menggunakan depedency injection (DI) sejak AngularJS versi 1.x sehingga lebih mudah untuk meng-inject atau memasukkan service kedalam komponen yang ingin menggunakannya.</li>
+<li>buka file <strong>todo-data.service.ts</strong> tambahkan method CompleteTodo</li>
 </ul>
-<h3 id="membuat-service">membuat service</h3>
-<ul>
-<li>untuk membuat sebuah service harus generate terlebih dahulu menggunakan <strong>terminal</strong> untuk codenya sebagai berikut:</li>
-</ul>
-<pre><code>ng g s auth
+<pre><code> compoleteTodo(todo:Todo){
+    const updateTodo= this.updateTodo(todo.id,{
+      complete:!todo.complete
+    });
+    return updateTodo;
+  }
 </code></pre><ul>
-<li><p>keterangan <strong>g (global)</strong>, <strong>s (service)</strong>, <strong>auth (nama_file)</strong></p>
-</li>
-<li><p>setelah berhasil membuat sebuah service maka langkah berikutnya tambahkan pada <strong>providers</strong> pada <strong>app.module.ts</strong></p>
-</li>
-<li>buka file <strong>app.module.ts</strong><pre><code>providers: [
-  AuthService
-],
-</code></pre></li>
-<li>buka file <strong>auth.service.ts</strong> tambahkan code berikut:</li>
+<li>buka file <strong>app.component.html</strong> tambahkan function click dan method completeTodo dengan parameter todo</li>
 </ul>
-<pre><code>import { Injectable } from &apos;@angular/core&apos;;
-import { AngularFireAuth } from &apos;angularfire2/auth&apos;;
-import * as firebase from &apos;firebase&apos;;
-import { Observable } from &apos;rxjs/internal/Observable&apos;;
+<pre><code>&lt;button class=&quot;btn btn-success&quot;(click)=&quot;completeTodo(todo)&quot;&gt;&lt;i class=&quot;fa fa-check&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+</code></pre><ul>
+<li>buka file <strong>app.components.ts</strong> tambahkan method <strong>completeTodo</strong></li>
+</ul>
+<pre><code>  completeTodo(todo){
+    this.todoService.compoleteTodo(todo);
+  }
+</code></pre><ul>
+<li>untuk keseluruhan code nya pada file <strong>app.components.ts</strong> sebagai berikut</li>
+</ul>
+<pre><code>import { Component } from &apos;@angular/core&apos;;
+import { Todo } from &apos;./class/todo&apos;;
+import { TodoDataService } from &apos;./services/todo-data.service&apos;;
+
+@Component({
+  selector: &apos;app-root&apos;,
+  templateUrl: &apos;./app.component.html&apos;,
+  styleUrls: [&apos;./app.component.css&apos;]
+})
+export class AppComponent {
+
+  newTodo:Todo=new Todo();
+
+  constructor( private todoService:TodoDataService){}
+
+  get todos(){
+    return this.todoService.getAllTodos();
+  }
+
+  addTodo(){
+    // console.log(this.newTodo);
+    if(this.newTodo.title &amp;&amp; this.newTodo.date){
+      this.todoService.addTodos(this.newTodo);
+      //cek isi new todo apakah berhasil
+      // console.log(this.newTodo);
+      this.newTodo.title=&apos;&apos;;
+      this.newTodo.date=&apos;&apos;;
+    }
+  }
+
+  completeTodo(todo){
+    this.todoService.compoleteTodo(todo);
+  }
+}
+</code></pre><ul>
+<li><p>jika berhasil maka saat button success di klik maka status akan berubah seperti gambar berikut
+<img src="image/chapter1/img14.png" alt="">
+<img src="image/chapter1/img15.png" alt=""></p>
+</li>
+<li><p>langkah berikutnya buka file <strong>app.component.html</strong> tambahkan  <strong>todo.id</strong></p>
+</li>
+</ul>
+<pre><code> &lt;tr *ngFor=&quot;let todo of todos&quot;&gt;
+        &lt;td&gt;{{todo.id}}&lt;/td&gt;
+        &lt;td&gt;{{todo.title}}&lt;/td&gt;
+        &lt;td&gt;{{todo.date.day}}-{{todo.date.month}}-{{todo.date.year}}&lt;/td&gt;
+</code></pre><ul>
+<li>buka file <strong>todo-data.service.ts</strong> tambahkan code berikut di constuctor</li>
+</ul>
+<pre><code>constructor() {
+    const todos=this.getAllTodos();
+    if (todos.length===0){
+      this.lastid=0;
+    }else {
+      const maxId= todos[todos.length-1].id;
+      this.lastid = maxId+1;
+    }
+  }
+</code></pre><ul>
+<li>jadi keseluruhan code pada <strong>todo-data.service.ts</strong> sebagai berikut :</li>
+</ul>
+<pre><code>import { Injectable } from &quot;@angular/core&quot;;
+import { Todo } from &quot;../class/todo&quot;;
 
 @Injectable({
-  providedIn: &apos;root&apos;
+  providedIn: &quot;root&quot;
 })
-export class AuthService {
+export class TodoDataService {
+  lastid = 0;
+  todos: Todo[] = [];
 
-  user$:Observable&lt;firebase.User&gt;;
-
-  constructor(private afAuth:AngularFireAuth) {
-
-    this.user$= afAuth.authState;
-   }
-
-  login(){
-    this.afAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+  constructor() {
+    const todos=this.getAllTodos();
+    if (todos.length===0){
+      this.lastid=0;
+    }else {
+      const maxId= todos[todos.length-1].id;
+      this.lastid = maxId+1;
+    }
   }
 
-  logout(){
-    this.afAuth.auth.signOut();
+  addTodos(todo: Todo): TodoDataService {
+    if (!todo.id) {
+      todo.id = ++this.lastid;
+    }
+    const todos = this.getAllTodos();
+    todos.push(todo);
+    //add code
+    this.setTodo(todos);
+    return this;
+  }
+
+  getAllTodos() {
+    const storageItem = JSON.parse(window.localStorage.getItem(&quot;app-todos&quot;));
+    if (storageItem === null) {
+      return [];
+    } else {
+      return storageItem.todos;
+    }
+  }
+
+  getTodoById(id:number):Todo{
+    const todos=this.getAllTodos();
+    return todos.filter(todo=&gt;todo.id===id).pop();
+  }
+
+  updateTodo(id:number,values:Object={}){
+    const todo=this.getTodoById(id);
+    if(!todo){
+      return null;
+    }
+    let todos = this.getAllTodos();
+    todos = todos.filter(t=&gt;t.id !== todo.id);
+    const todoValues= Object.assign(todo,values);
+    todos.push(todoValues);
+    this.setTodo(todos);
+  }
+
+  compoleteTodo(todo:Todo){
+    const updateTodo= this.updateTodo(todo.id,{
+      complete:!todo.complete
+    });
+    return updateTodo;
+  }
+
+  setTodo(usertodos: Todo[]) {
+    window.localStorage.setItem(
+      &quot;app-todos&quot;,
+      JSON.stringify({ todos: usertodos })
+    );
   }
 }
 </code></pre><ul>
-<li>buka file <strong>login.component.ts</strong> dan modifikasi codenya menjadi seperti berikut </li>
+<li><p>jalan aplikasi dan amati id nya <strong>jika kita lihat pada saat nambah idnya tetap</strong>
+<img src="image/chapter1/img20.png" alt=""></p>
+</li>
+<li><p>buka file <strong>app.component.ts</strong> tambahkan code <strong>this.newTodo=new Todo()</strong> pada method <strong>addTodo()</strong></p>
+</li>
 </ul>
-<pre><code>import { Component } from &apos;@angular/core&apos;;
-import { AuthService } from &apos;../auth.service&apos;;
-
-@Component({
-  selector: &apos;app-login&apos;,
-  templateUrl: &apos;./login.component.html&apos;,
-  styleUrls: [&apos;./login.component.css&apos;]
-})
-export class LoginComponent {
-
-  constructor(private auth:AuthService) { }
-
-  login(){
-    this.auth.login();
+<pre><code>addTodo(){
+    // console.log(this.newTodo);
+    if(this.newTodo.title &amp;&amp; this.newTodo.date){
+      this.todoService.addTodos(this.newTodo);
+      //cek isi new todo apakah berhasil
+      // console.log(this.newTodo);
+      this.newTodo= new Todo();
+      this.newTodo.title=&apos;&apos;;
+      this.newTodo.date=&apos;&apos;;
+    }
   }
-
-}
 </code></pre><ul>
-<li>buka file <strong>bs-navbar.component.ts</strong> dan modifikasi codenya seperti berikut</li>
+<li><p>clear <strong>local storage</strong> pada tab application 
+<img src="image/chapter1/img16.png" alt=""></p>
+</li>
+<li><p>tambahkan beberapa data, jika benar maka id akan bertambah dan hasilnya seperti pada gambar berikut
+<img src="image/chapter1/img17.png" alt=""></p>
+</li>
+<li><p>jika kita klik button succes maka status akan berubah seperti sebelumnya seperti pada gambar berikut
+<img src="image/chapter1/img18.png" alt=""></p>
+</li>
+<li><p>buat kondisi dimana jika status sudah complete maka button akan disable</p>
+</li>
+<li>buka file <strong>app.component.html</strong> tambahkan <strong>[disabled]</strong> </li>
 </ul>
-<pre><code>import { Component } from &apos;@angular/core&apos;;
-import { AuthService } from &apos;../auth.service&apos;;
-
-
-@Component({
-  selector: &apos;bs-navbar&apos;,
-  templateUrl: &apos;./bs-navbar.component.html&apos;,
-  styleUrls: [&apos;./bs-navbar.component.css&apos;]
-})
-export class BsNavbarComponent {
-
-  constructor(public auth:AuthService) {}
-
-  logout(){
-    this.auth.logout();
-  }
-}
+<pre><code> &lt;button class=&quot;btn btn-success&quot;(click)=&quot;completeTodo(todo)&quot; [disabled]=&quot;todo.complete&quot;&gt;&lt;i class=&quot;fa fa-check&quot;&gt;&lt;/i&gt;&lt;/button&gt;
 </code></pre><ul>
-<li>buka file <strong>bs-navbar.component.hmtl</strong> tambahkan code berikut <strong>auth.user</strong></li>
-</ul>
-<pre><code> &lt;li ngbDropdown *ngIf=&quot;auth.user$ | async as user; else anonymousUser&quot; class=&quot;nav-item dropdown&quot;&gt;
-</code></pre><ul>
-<li>sehingga kesuluruhan code pada <strong>bs-navbar.component.html</strong></li>
-</ul>
-<pre><code>&lt;nav class=&quot;navbar navbar-expand-md navbar-dark bg-dark fixed-top&quot;&gt;
-  &lt;a class=&quot;navbar-brand&quot; routerLink=&quot;/&quot;&gt;O&lt;/a&gt;
-  &lt;button class=&quot;navbar-toggler&quot; type=&quot;button&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#navbarsExampleDefault&quot; aria-controls=&quot;navbarsExampleDefault&quot; aria-expanded=&quot;false&quot; aria-label=&quot;Toggle navigation&quot;&gt;
-    &lt;span class=&quot;navbar-toggler-icon&quot;&gt;&lt;/span&gt;
-  &lt;/button&gt;
-
-  &lt;div class=&quot;collapse navbar-collapse&quot; id=&quot;navbarsExampleDefault&quot;&gt;
-    &lt;ul class=&quot;navbar-nav mr-auto&quot;&gt;
-
-      &lt;li class=&quot;nav-item&quot;&gt;
-        &lt;!-- 2.tambahkan routerlink --&gt;
-        &lt;a class=&quot;nav-link&quot; routerLink=&quot;/shopping-chart&quot;&gt;Shopping Chart&lt;/a&gt;
-      &lt;/li&gt;
-
-      &lt;!-- tambahkan ng template --&gt;
-        &lt;ng-template #anonymousUser&gt;
-              &lt;li class=&quot;nav-item&quot;&gt;
-              &lt;a class=&quot;nav-link&quot; routerLink=&quot;/login&quot;&gt;Login&lt;/a&gt;
-            &lt;/li&gt;
-        &lt;/ng-template&gt;
-
-      &lt;!-- rubah code menggunakan async as user --&gt;
-      &lt;li ngbDropdown *ngIf=&quot;auth.user$ | async as user; else anonymousUser&quot; class=&quot;nav-item dropdown&quot;&gt;
-        &lt;!-- edit username mjd  {{user.displayName}}--&gt;
-        &lt;a ngbDropdownToggle class=&quot;nav-link dropdown-toggle&quot; id=&quot;dropdown01&quot; data-toggle=&quot;dropdown&quot; aria-haspopup=&quot;true&quot; aria-expanded=&quot;false&quot;&gt;{{user.displayName}}&lt;/a&gt;
-        &lt;div ngbDropdownMenu class=&quot;dropdown-menu show&quot; aria-labelledby=&quot;dropdown01&quot;&gt;
-          &lt;!-- rubah code seperti dibawah ini --&gt;
-          &lt;a class=&quot;dropdown-item&quot; routerLink=&quot;orders&quot;&gt;My Orders&lt;/a&gt;
-          &lt;a class=&quot;dropdown-item&quot; routerLink=&quot;/admin/admin-orders&quot;&gt;Manage Orders&lt;/a&gt;
-          &lt;a class=&quot;dropdown-item&quot; routerLink=&quot;/admin/admin-products&quot;&gt;Manage Products&lt;/a&gt;
-          &lt;a class=&quot;dropdown-item&quot; (click)=&quot;logout()&quot;&gt; Log Out&lt;/a&gt;
-        &lt;/div&gt;
-      &lt;/li&gt;     
-    &lt;/ul&gt;
-  &lt;/div&gt;
-&lt;/nav&gt;
-</code></pre><ul>
-<li>jika berhasil maka tampilan seperti pada gambar berikut <strong>saat login</strong>
-<img src="image/chapter2/img8.png" alt=""></li>
+<li><p>jika benar maka data yang berstatus complete akan disabled button successnya seperti pada gambar berikut
+<img src="image/chapter1/img19.png" alt=""></p>
+</li>
+<li><p>jika id berhasil bertambah maka hapus  pada file <strong>app.component.html</strong> dan hasilnya akan seperti gambar berikut
+<img src="image/chapter1/img21.png" alt=""></p>
+</li>
 </ul>
 
                                 
@@ -713,7 +777,7 @@ export class BsNavbarComponent {
 
             
                 
-                <a href="12.html" class="navigation navigation-prev " aria-label="Previous page: 12. Menggunakan pipe untuk async">
+                <a href="12.html" class="navigation navigation-prev " aria-label="Previous page: 12.Update TODO">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
@@ -729,7 +793,7 @@ export class BsNavbarComponent {
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"13. Service","level":"1.14","depth":1,"next":{"title":"14. Auth Guard","level":"1.15","depth":1,"path":"14.md","ref":"14.md","articles":[]},"previous":{"title":"12. Menggunakan pipe untuk async","level":"1.13","depth":1,"path":"12.md","ref":"12.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"13.md","mtime":"2019-01-21T14:11:21.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-23T04:49:43.221Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"13.Toggle Method","level":"1.14","depth":1,"next":{"title":"14. Auth Guard","level":"1.15","depth":1,"path":"14.md","ref":"14.md","articles":[]},"previous":{"title":"12.Update TODO","level":"1.13","depth":1,"path":"12.md","ref":"12.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"13.md","mtime":"2019-01-25T13:51:25.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-25T00:06:19.281Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
