@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TodoDataService } from './services/todo-data.service';
 
 @NgModule({
@@ -14,7 +14,8 @@ import { TodoDataService } from './services/todo-data.service';
     BrowserModule,
     NgbModule,
     AngularFontAwesomeModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [TodoDataService],
   bootstrap: [AppComponent]

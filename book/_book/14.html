@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>14. Auth Guard · GitBook</title>
+        <title>14.Icon Check · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -276,7 +276,7 @@
                 <a href="14.html">
             
                     
-                    14. Auth Guard
+                    14.Icon Check
             
                 </a>
             
@@ -289,7 +289,7 @@
                 <a href="15.html">
             
                     
-                    15. Local Storage
+                    15.Delete Method in Todo Service
             
                 </a>
             
@@ -302,7 +302,7 @@
                 <a href="16.html">
             
                     
-                    16. Storing User
+                    16.Add Update Modal
             
                 </a>
             
@@ -535,7 +535,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >14. Auth Guard</a>
+        <a href="." >14.Icon Check</a>
     </h1>
 </div>
 
@@ -552,94 +552,107 @@
                                 
                                 <h1 id="kemampuan-akhir-yang-direncanakan">Kemampuan Akhir Yang Direncanakan</h1>
 <ul>
-<li>Peserta mampu membuat auth-guard</li>
-<li><a href="https://angular.io/api/router/CanActivate#description" target="_blank">https://angular.io/api/router/CanActivate#description</a></li>
+<li>Peserta mampu menambahkan check icon</li>
 </ul>
-<h1 id="percobaan-13-membuat-canactive">Percobaan 13 membuat CanActive</h1>
+<h1 id="percobaan-membuat-check-icon">Percobaan membuat check icon</h1>
 <ul>
-<li>sejauh ini kita belum memberikan auth-guard untuk halaman apa saja.Sehingga user dapat mengakses halaman apa saja seperti contoh ketik alamat  <strong>localhost:4200/check-out</strong> maka web akan menampilkan halaman check out seperti pada gambar berikut:</li>
+<li>buka file <strong>app.component.html</strong> tambahkan code pengkondisian status complete</li>
 </ul>
-<p><img src="image/chapter2/img10.png" alt=""></p>
-<ul>
-<li>untuk itu kita membutuhkan auth-guard </li>
-<li>langkah pertama yang harus dilakukan <strong>menggenerate service</strong> pada <strong>terminal</strong></li>
-</ul>
-<pre><code>ng g s auth-guard
+<pre><code>&lt;tr *ngFor=&quot;let todo of todos&quot;&gt;
+        &lt;td&gt;
+          &lt;i class=&quot;fa fa-check-circle&quot; aria-hidden=&quot;true&quot; *ngIf=&quot;todo.complete&quot;&gt;&lt;/i&gt;
+          &lt;i class=&quot;fa fa-circle-o&quot; aria-hidden=&quot;true&quot; *ngIf=&quot;!todo.complete&quot;&gt;&lt;/i&gt;
+        &lt;/td&gt;
 </code></pre><ul>
-<li>buka file <strong>auth-guard.service.ts</strong> dan rename nama classnya menjadi <strong>AuthGuard</strong> seperti pada code berikut:</li>
+<li>sehingga code secara keseluruhan pada <strong>app.component.html</strong> seperti berikut</li>
 </ul>
-<pre><code>import { Injectable } from &apos;@angular/core&apos;;
+<pre><code>&lt;div class=&quot;container&quot;&gt;
+  &lt;div class=&quot;row&quot;&gt;&lt;h2 class=&quot;title&quot;&gt;ToDO Application&lt;/h2&gt;&lt;/div&gt;
 
-@Injectable({
-  providedIn: &apos;root&apos;
-})
-export class AuthGuard {
+  &lt;div class=&quot;row&quot;&gt;
+    &lt;form class=&quot;form-inline&quot;&gt;
+      &lt;div class=&quot;form-row&quot;&gt;
+        &lt;div class=&quot;col-md-5&quot;&gt;
+          &lt;input
+            type=&quot;text&quot;
+            name=&quot;title&quot;
+            [(ngModel)]=&quot;newTodo.title&quot;
+            class=&quot;form-control&quot;
+            placeholder=&quot;ToDo Title&quot;
+            autocomplete=&quot;off&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;col-md-5&quot;&gt;
+          &lt;!-- &lt;input type=&quot;date&quot; /&gt; --&gt;
+          &lt;div class=&quot;form-group&quot;&gt;
+            &lt;div class=&quot;input-group&quot;&gt;
+              &lt;input
+                class=&quot;form-control&quot;
+                placeholder=&quot;completion Date&quot;
+                name=&quot;dp&quot;
+                [(ngModel)]=&quot;newTodo.date&quot;
+                ngbDatepicker
+                #d=&quot;ngbDatepicker&quot;
+                autocomplete=&quot;off&quot;
+              /&gt;
+              &lt;div class=&quot;input-group-append&quot;&gt;
+                &lt;button
+                  class=&quot;btn btn-outline-secondary calendar&quot;
+                  (click)=&quot;d.toggle()&quot;
+                  type=&quot;button&quot;
+                &gt;
+                  &lt;i class=&quot;fa fa-calendar&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;
+                &lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;col-md-2&quot;&gt;
+          &lt;button class=&quot;btn btn-primary&quot; (click)=&quot;addTodo()&quot;&gt;Add&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;
+  &lt;/div&gt;
 
-  constructor() { }
-}
+  &lt;table class=&quot;table&quot; *ngIf=&quot;todos.length &gt; 0&quot;&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;&lt;/th&gt;
+        &lt;th&gt;Title&lt;/th&gt;
+        &lt;th&gt;Date&lt;/th&gt;
+        &lt;th&gt;Status&lt;/th&gt;
+        &lt;th&gt;Options&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr *ngFor=&quot;let todo of todos&quot;&gt;
+        &lt;td&gt;
+          &lt;i class=&quot;fa fa-check-circle&quot; aria-hidden=&quot;true&quot; *ngIf=&quot;todo.complete&quot;&gt;&lt;/i&gt;
+          &lt;i class=&quot;fa fa-circle-o&quot; aria-hidden=&quot;true&quot; *ngIf=&quot;!todo.complete&quot;&gt;&lt;/i&gt;
+        &lt;/td&gt;
+        &lt;td&gt;{{ todo.title }}&lt;/td&gt;
+        &lt;td&gt;{{ todo.date.day }}-{{ todo.date.month }}-{{ todo.date.year }}&lt;/td&gt;
+        &lt;td *ngIf=&quot;!todo.complete&quot;&gt;not complete&lt;/td&gt;
+        &lt;td *ngIf=&quot;todo.complete&quot;&gt;complete&lt;/td&gt;
+        &lt;td class=&quot;icons&quot;&gt;
+          &lt;button
+            class=&quot;btn btn-success&quot;
+            (click)=&quot;completeTodo(todo)&quot;
+            [disabled]=&quot;todo.complete&quot;
+          &gt;
+            &lt;i class=&quot;fa fa-check&quot;&gt;&lt;/i&gt;
+          &lt;/button&gt;
+          &lt;button class=&quot;btn btn-primary&quot;&gt;&lt;i class=&quot;fa fa-pencil&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+          &lt;button class=&quot;btn btn-danger&quot;&gt;&lt;i class=&quot;fa fa-trash&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
 </code></pre><ul>
-<li>tambahkan pada <strong>providers</strong> pada <strong>app.module.ts</strong> <strong>cat:pastikan ada import { AuthGuard } from &apos;./auth-guard.service&apos;;</strong></li>
+<li>jika benar maka yang berstatus complete maka akan tampil check circle sedangkan jika yang berstatus tidak complete maka akan muncul circle saja seperti pada gamabar berikut</li>
 </ul>
-<pre><code>  providers: [
-    AuthService,
-    AuthGuard
-  ],
-</code></pre><ul>
-<li>buka file <strong>auth-guard.service.ts</strong> tambahkan beberapa code sehingga seperti dibawah ini </li>
-</ul>
-<pre><code>import { Observable} from &apos;rxjs&apos;;
-import { AuthService } from &apos;./auth.service&apos;;
-import { Injectable } from &apos;@angular/core&apos;;
-import { Router, RouterStateSnapshot,ActivatedRouteSnapshot,CanActivate} from &apos;@angular/router&apos;;
-import { map } from &apos;rxjs/operators&apos;;
-
-@Injectable({
-  providedIn: &apos;root&apos;
-})
-
-// @Injectable()
-export class AuthGuard implements CanActivate{
-
-
-  constructor(private auth:AuthService,private router:Router) { }
-
-    canActivate(): Observable&lt;boolean&gt; | Promise&lt;boolean&gt; | boolean
-    {
-      return this.auth.user$.pipe(
-        map(user =&gt;{
-          if (user){
-            return true;
-          } 
-          this.router.navigate([&quot;/login&quot;]);
-          return false;
-        })
-      );
-    }
-}
-</code></pre><ul>
-<li>tambahkan <strong>canActive:[AuthGuard]</strong> pada path di <strong>app.module.ts</strong></li>
-</ul>
-<pre><code>{path:&apos;check-out&apos;,component:CheckOutComponent, canActivate:[AuthGuard]},
-</code></pre><ul>
-<li>sehingga hasil codenya seperti berikut</li>
-</ul>
-<pre><code>RouterModule.forRoot(
-      [
-        {path:&apos;&apos;,component:HomeComponent},
-        {path:&apos;products&apos;,component:ProductsComponent},
-        {path:&apos;shopping-chart&apos;,component:ShoppingChartComponent},
-        {path:&apos;check-out&apos;,component:CheckOutComponent, canActivate:[AuthGuard]},
-        {path:&apos;order-success&apos;,component:OrderSuccessComponent,canActivate:[AuthGuard]},
-        {path:&apos;orders&apos;,component:MyOrdersComponent,canActivate:[AuthGuard]},
-        {path:&apos;login&apos;,component:LoginComponent},
-        {path:&apos;admin/admin-products&apos;,component:AdminProductsComponent,canActivate:[AuthGuard]},
-        {path:&apos;admin/admin-orders&apos;,component:AdminOrdersComponent,canActivate:[AuthGuard]},
-
-      ]
-    )
-</code></pre><ul>
-<li>jika berhasil maka saat ketik ketik <strong><a href="http://localhost:4200/check-out" target="_blank">http://localhost:4200/check-out</a></strong> maka akan kembali ke halaman login</li>
-</ul>
+<p><img src="image/chapter1/img22.png" alt=""></p>
 
                                 
                                 </section>
@@ -672,7 +685,7 @@ export class AuthGuard implements CanActivate{
                 </a>
                 
                 
-                <a href="15.html" class="navigation navigation-next " aria-label="Next page: 15. Local Storage">
+                <a href="15.html" class="navigation navigation-next " aria-label="Next page: 15.Delete Method in Todo Service">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -683,7 +696,7 @@ export class AuthGuard implements CanActivate{
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"14. Auth Guard","level":"1.15","depth":1,"next":{"title":"15. Local Storage","level":"1.16","depth":1,"path":"15.md","ref":"15.md","articles":[]},"previous":{"title":"13.Toggle Method","level":"1.14","depth":1,"path":"13.md","ref":"13.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"14.md","mtime":"2019-01-21T14:11:29.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-25T00:06:19.281Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"14.Icon Check","level":"1.15","depth":1,"next":{"title":"15.Delete Method in Todo Service","level":"1.16","depth":1,"path":"15.md","ref":"15.md","articles":[]},"previous":{"title":"13.Toggle Method","level":"1.14","depth":1,"path":"13.md","ref":"13.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"14.md","mtime":"2019-01-25T14:12:33.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-25T14:48:44.214Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

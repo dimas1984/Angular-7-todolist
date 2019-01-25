@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>16. Storing User · GitBook</title>
+        <title>16.Add Update Modal · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -276,7 +276,7 @@
                 <a href="14.html">
             
                     
-                    14. Auth Guard
+                    14.Icon Check
             
                 </a>
             
@@ -289,7 +289,7 @@
                 <a href="15.html">
             
                     
-                    15. Local Storage
+                    15.Delete Method in Todo Service
             
                 </a>
             
@@ -302,7 +302,7 @@
                 <a href="16.html">
             
                     
-                    16. Storing User
+                    16.Add Update Modal
             
                 </a>
             
@@ -535,7 +535,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >16. Storing User</a>
+        <a href="." >16.Add Update Modal</a>
     </h1>
 </div>
 
@@ -552,75 +552,191 @@
                                 
                                 <h1 id="kemampuan-akhir-yang-direncanakan">Kemampuan Akhir Yang Direncanakan</h1>
 <ul>
-<li>Peserta cara menggunakan database pada firebase</li>
-<li>Peserta mengetahui cara menyimpan informasi user pada database firebase</li>
+<li>Peserta mampu menggunakan modal untuk update</li>
+<li><a href="https://ng-bootstrap.github.io/#/components/modal/examples" target="_blank">https://ng-bootstrap.github.io/#/components/modal/examples</a></li>
 </ul>
-<h1 id="percobaan-15-storing-users-di-firebase">Percobaan 15 Storing Users di Firebase</h1>
+<h1 id="percobaan-membuat-modal">Percobaan membuat modal</h1>
 <ul>
-<li>buka database pada firebase <strong><a href="https://console.firebase.google.com/project/nama-project/database" target="_blank">https://console.firebase.google.com/project/nama-project/database</a></strong> sehingga tampilan awal seperti pada gambar ini </li>
+<li>copy code berikut dan pastekan ke file <strong>app.component.html</strong></li>
 </ul>
-<p><img src="image/chapter2/img13.png" alt=""></p>
-<ul>
-<li>buatlah database </li>
-</ul>
-<p><img src="image/chapter2/img14.png" alt=""></p>
-<ul>
-<li>pilih realtimedatabase</li>
-</ul>
-<p><img src="image/chapter2/img15.png" alt=""></p>
-<ul>
-<li>set rulesnya dari false menjadi true </li>
-</ul>
-<p><img src="image/chapter2/img16.png" alt=""></p>
-<ul>
-<li>pada awal database maka tidak terlihat data apapun <strong>null</strong></li>
-</ul>
-<p><img src="image/chapter2/img17.png" alt=""></p>
-<ul>
-<li>Generate sebuah servis dengan nama user </li>
-</ul>
-<pre><code>ng g s user
+<pre><code>&lt;ng-template #content let-modal&gt;
+  &lt;div class=&quot;modal-header&quot;&gt;
+    &lt;h4 class=&quot;modal-title&quot; id=&quot;modal-basic-title&quot;&gt;Profile update&lt;/h4&gt;
+    &lt;button type=&quot;button&quot; class=&quot;close&quot; aria-label=&quot;Close&quot; (click)=&quot;modal.dismiss(&apos;Cross click&apos;)&quot;&gt;
+      &lt;span aria-hidden=&quot;true&quot;&gt;&amp;times;&lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;modal-body&quot;&gt;
+    &lt;form&gt;
+      &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label for=&quot;dateOfBirth&quot;&gt;Date of birth&lt;/label&gt;
+        &lt;div class=&quot;input-group&quot;&gt;
+          &lt;input id=&quot;dateOfBirth&quot; class=&quot;form-control&quot; placeholder=&quot;yyyy-mm-dd&quot; name=&quot;dp&quot; ngbDatepicker #dp=&quot;ngbDatepicker&quot;&gt;
+          &lt;div class=&quot;input-group-append&quot;&gt;
+            &lt;button class=&quot;btn btn-outline-secondary calendar&quot; (click)=&quot;dp.toggle()&quot; type=&quot;button&quot;&gt;&lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;modal-footer&quot;&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn-outline-dark&quot; (click)=&quot;modal.close(&apos;Save click&apos;)&quot;&gt;Save&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/ng-template&gt;
 </code></pre><ul>
-<li>buka file <strong>app.module.ts</strong> tambahkan <strong>userService</strong> berikut pada <strong>providers</strong></li>
+<li>sehingga hasil code pada file <strong>app.component.html</strong> sebagai berikut</li>
 </ul>
-<pre><code>UserService
+<pre><code>&lt;div class=&quot;container&quot;&gt;
+  &lt;div class=&quot;row&quot;&gt;&lt;h2 class=&quot;title&quot;&gt;ToDO Application&lt;/h2&gt;&lt;/div&gt;
+
+  &lt;div class=&quot;row&quot;&gt;
+    &lt;form class=&quot;form-inline&quot;&gt;
+      &lt;div class=&quot;form-row&quot;&gt;
+        &lt;div class=&quot;col-md-5&quot;&gt;
+          &lt;input
+            type=&quot;text&quot;
+            name=&quot;title&quot;
+            [(ngModel)]=&quot;newTodo.title&quot;
+            class=&quot;form-control&quot;
+            placeholder=&quot;ToDo Title&quot;
+            autocomplete=&quot;off&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;col-md-5&quot;&gt;
+          &lt;!-- &lt;input type=&quot;date&quot; /&gt; --&gt;
+          &lt;div class=&quot;form-group&quot;&gt;
+            &lt;div class=&quot;input-group&quot;&gt;
+              &lt;input
+                class=&quot;form-control&quot;
+                placeholder=&quot;completion Date&quot;
+                name=&quot;dp&quot;
+                [(ngModel)]=&quot;newTodo.date&quot;
+                ngbDatepicker
+                #d=&quot;ngbDatepicker&quot;
+                autocomplete=&quot;off&quot;
+              /&gt;
+              &lt;div class=&quot;input-group-append&quot;&gt;
+                &lt;button
+                  class=&quot;btn btn-outline-secondary calendar&quot;
+                  (click)=&quot;d.toggle()&quot;
+                  type=&quot;button&quot;
+                &gt;
+                  &lt;i class=&quot;fa fa-calendar&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;
+                &lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;col-md-2&quot;&gt;
+          &lt;button class=&quot;btn btn-primary&quot; (click)=&quot;addTodo()&quot;&gt;Add&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;
+  &lt;/div&gt;
+
+  &lt;table class=&quot;table&quot; *ngIf=&quot;todos.length &gt; 0&quot;&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;&lt;/th&gt;
+        &lt;th&gt;Title&lt;/th&gt;
+        &lt;th&gt;Date&lt;/th&gt;
+        &lt;th&gt;Status&lt;/th&gt;
+        &lt;th&gt;Options&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr *ngFor=&quot;let todo of todos&quot;&gt;
+        &lt;td&gt;
+          &lt;i
+            class=&quot;fa fa-check-circle&quot;
+            aria-hidden=&quot;true&quot;
+            *ngIf=&quot;todo.complete&quot;
+          &gt;&lt;/i&gt;
+          &lt;i
+            class=&quot;fa fa-circle-o&quot;
+            aria-hidden=&quot;true&quot;
+            *ngIf=&quot;!todo.complete&quot;
+          &gt;&lt;/i&gt;
+        &lt;/td&gt;
+        &lt;td&gt;{{ todo.title }}&lt;/td&gt;
+        &lt;td&gt;{{ todo.date.day }}-{{ todo.date.month }}-{{ todo.date.year }}&lt;/td&gt;
+        &lt;td *ngIf=&quot;!todo.complete&quot;&gt;not complete&lt;/td&gt;
+        &lt;td *ngIf=&quot;todo.complete&quot;&gt;complete&lt;/td&gt;
+        &lt;td class=&quot;icons&quot;&gt;
+          &lt;button
+            class=&quot;btn btn-success&quot;
+            (click)=&quot;completeTodo(todo)&quot;
+            [disabled]=&quot;todo.complete&quot;
+          &gt;
+            &lt;i class=&quot;fa fa-check&quot;&gt;&lt;/i&gt;
+          &lt;/button&gt;
+          &lt;button class=&quot;btn btn-primary&quot;&gt;&lt;i class=&quot;fa fa-pencil&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+          &lt;button class=&quot;btn btn-danger&quot;&gt;
+            &lt;i class=&quot;fa fa-trash&quot; (click)=&quot;deleteTod(todo)&quot;&gt;&lt;/i&gt;
+          &lt;/button&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
+
+&lt;ng-template #content let-modal&gt;
+  &lt;div class=&quot;modal-header&quot;&gt;
+    &lt;h4 class=&quot;modal-title&quot; id=&quot;modal-basic-title&quot;&gt;Profile update&lt;/h4&gt;
+    &lt;button
+      type=&quot;button&quot;
+      class=&quot;close&quot;
+      aria-label=&quot;Close&quot;
+      (click)=&quot;modal.dismiss(&apos;Cross click&apos;)&quot;
+    &gt;
+      &lt;span aria-hidden=&quot;true&quot;&gt;&amp;times;&lt;/span&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;modal-body&quot;&gt;
+    &lt;form&gt;
+      &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label for=&quot;dateOfBirth&quot;&gt;Date of birth&lt;/label&gt;
+        &lt;div class=&quot;input-group&quot;&gt;
+          &lt;input
+            id=&quot;dateOfBirth&quot;
+            class=&quot;form-control&quot;
+            placeholder=&quot;yyyy-mm-dd&quot;
+            name=&quot;dp&quot;
+            ngbDatepicker
+            #dp=&quot;ngbDatepicker&quot;
+          /&gt;
+          &lt;div class=&quot;input-group-append&quot;&gt;
+            &lt;button
+              class=&quot;btn btn-outline-secondary calendar&quot;
+              (click)=&quot;dp.toggle()&quot;
+              type=&quot;button&quot;
+            &gt;&lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;modal-footer&quot;&gt;
+    &lt;button
+      type=&quot;button&quot;
+      class=&quot;btn btn-outline-dark&quot;
+      (click)=&quot;modal.close(&apos;Save click&apos;)&quot;
+    &gt;
+      Save
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/ng-template&gt;
 </code></pre><ul>
-<li>sehingga isi array pada <strong>providers</strong> secara kesuluruhan seperti berikut</li>
+<li>tambahkan method <strong>(click)=&quot;open(content,todo)</strong> pada file <strong>app.component.html</strong></li>
 </ul>
-<pre><code>providers: [
-    AuthService,
-    AuthGuard,
-    UserService
-  ],
+<pre><code>  &lt;button class=&quot;btn btn-primary&quot; (click)=&quot;open(content,todo)&quot;&gt;&lt;i class=&quot;fa fa-pencil&quot;&gt;&lt;/i&gt;&lt;/button&gt;
 </code></pre><ul>
-<li>buka file <strong>user.servive.ts</strong> tambahkan code berikut</li>
-</ul>
-<pre><code>import { Injectable } from &apos;@angular/core&apos;;
-import * as firebase from &apos;firebase&apos;;
-import { AngularFireDatabase } from &apos;angularfire2/database&apos;;
-
-
-@Injectable({
-  providedIn: &apos;root&apos;
-})
-export class UserService {
-
-  constructor(private db:AngularFireDatabase) { }
-
-  save(user:firebase.User){
-    this.db.object(&apos;/users/&apos; + user.uid).update({
-      nama: user.displayName,
-      email:user.email
-    });
-  }
-}
-</code></pre><ul>
-<li>buka file <strong>app.component.ts</strong> tambahkan code berikut</li>
+<li>buka file <strong>app.component.ts</strong> tambahkan method <strong>open(content,todo)</strong> , tambahkan juga code <strong>private modalService: NgbModal</strong> pada <strong>construktor</strong></li>
 </ul>
 <pre><code>import { Component } from &apos;@angular/core&apos;;
-import { AuthService } from &apos;./auth.service&apos;;
-import { Router } from &apos;@angular/router&apos;;
-import { UserService} from &apos;./user.service&apos;;
+import { Todo } from &apos;./class/todo&apos;;
+import { TodoDataService } from &apos;./services/todo-data.service&apos;;
+import { NgbModal } from &apos;@ng-bootstrap/ng-bootstrap&apos;;
 
 @Component({
   selector: &apos;app-root&apos;,
@@ -628,22 +744,289 @@ import { UserService} from &apos;./user.service&apos;;
   styleUrls: [&apos;./app.component.css&apos;]
 })
 export class AppComponent {
-  // tambahkan paramter userservice
-  constructor(private userService:UserService,private auth:AuthService,router:Router){
-    auth.user$.subscribe(user=&gt;{
-      if(user){
-        //tambahkan paramater userservice dengan method save
-        userService.save(user);
-        let returnUrl = localStorage.getItem(&apos;returnUrl&apos;);
-        router.navigateByUrl(returnUrl);
-      }
-    })
+
+  newTodo:Todo=new Todo();
+
+  constructor( private todoService:TodoDataService,private modalService: NgbModal){}
+
+  get todos(){
+    return this.todoService.getAllTodos();
+  }
+
+  addTodo(){
+    // console.log(this.newTodo);
+    if(this.newTodo.title &amp;&amp; this.newTodo.date){
+      this.todoService.addTodos(this.newTodo);
+      //cek isi new todo apakah berhasil
+      // console.log(this.newTodo);
+      this.newTodo= new Todo();
+      this.newTodo.title=&apos;&apos;;
+      this.newTodo.date=&apos;&apos;;
+    }
+  }
+
+  deleteTod(todo){
+    this.todoService.deleteTodoById(todo.id);
+  }
+
+  completeTodo(todo){
+    this.todoService.compoleteTodo(todo);
+  }
+
+  open(content,todo){
+    this.modalService.open(content, {ariaLabelledBy: &apos;modal-basic-title&apos;});
   }
 }
 </code></pre><ul>
-<li>untuk mengecek keberhasilan sistem, anda dapat login dan lihat pada database anda. Jika benar maka akan muncul data seperti pada gambar berikut</li>
+<li><p>sehingga hasilnya seperti gambar dibawah ini
+<img src="image/chapter1/img24.png" alt=""></p>
+</li>
+<li><p>jika kita lihat pada gambar diatas hanya ada form input tanggal sedangkan yang title belum ada, untuk itu lakukan langkah-langkah berikut</p>
+</li>
+<li><p>buka file <strong>app.module.ts</strong> dan tambahkan <strong>ReactiveFormModule</strong></p>
+</li>
 </ul>
-<p><img src="image/chapter2/img18.png" alt=""></p>
+<pre><code>import { BrowserModule } from &apos;@angular/platform-browser&apos;;
+import { NgModule } from &apos;@angular/core&apos;;
+import { NgbModule } from &apos;@ng-bootstrap/ng-bootstrap&apos;;
+import { AngularFontAwesomeModule } from &apos;angular-font-awesome&apos;;
+import { AppComponent } from &apos;./app.component&apos;;
+import { FormsModule, ReactiveFormsModule } from &apos;@angular/forms&apos;;
+import { TodoDataService } from &apos;./services/todo-data.service&apos;;
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    NgbModule,
+    AngularFontAwesomeModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  providers: [TodoDataService],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+</code></pre><ul>
+<li>buka file <strong>app.component.html</strong> tambahkan code berikut <strong>[ formGroup ]=&quot;editForm</strong> pada <strong>class=modal-body</strong></li>
+</ul>
+<pre><code>&lt;div class=&quot;modal-body&quot;&gt;
+    &lt;form [formGroup]=&quot;editForm&quot;&gt;
+      &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label for=&quot;dateOfBirth&quot;&gt;Date of birth&lt;/label&gt;
+        &lt;div class=&quot;input-group&quot;&gt;
+</code></pre><ul>
+<li><p>pada file <strong>app.component.html</strong> modifikasi pada <strong>class=&quot;modal-footer</strong></p>
+<pre><code>&lt;div class=&quot;modal-footer&quot;&gt;
+  &lt;button
+    type=&quot;button&quot;
+    class=&quot;btn btn-danger&quot;
+    (click)=&quot;modal.close(&apos;Save click&apos;)&quot;
+  &gt;
+    Save
+  &lt;/button&gt;
+  &lt;button
+  type=&quot;button&quot;
+  class=&quot;btn btn-primary&quot;
+  (click)=&quot;updateTodo()&quot;
+&gt;
+  Cancel
+&lt;/button&gt;
+&lt;/div&gt;
+</code></pre></li>
+<li><p>buka file <strong>app.component.ts</strong> tambahkan method <strong>UpdateTodo()</strong> dan tambahkan juga property baru dengan nama <strong>editForm</strong> sehingga keseluruhan codenya menjadi seperti berikut</p>
+</li>
+</ul>
+<pre><code>import { Component } from &apos;@angular/core&apos;;
+import { Todo } from &apos;./class/todo&apos;;
+import { TodoDataService } from &apos;./services/todo-data.service&apos;;
+import { NgbModal } from &apos;@ng-bootstrap/ng-bootstrap&apos;;
+import { FormGroup } from &apos;@angular/forms&apos;;
+
+@Component({
+  selector: &apos;app-root&apos;,
+  templateUrl: &apos;./app.component.html&apos;,
+  styleUrls: [&apos;./app.component.css&apos;]
+})
+export class AppComponent {
+
+  newTodo:Todo=new Todo();
+  editForm:FormGroup;
+
+  constructor( private todoService:TodoDataService,private modalService: NgbModal){}
+
+  get todos(){
+    return this.todoService.getAllTodos();
+  }
+
+  addTodo(){
+    // console.log(this.newTodo);
+    if(this.newTodo.title &amp;&amp; this.newTodo.date){
+      this.todoService.addTodos(this.newTodo);
+      //cek isi new todo apakah berhasil
+      // console.log(this.newTodo);
+      this.newTodo= new Todo();
+      this.newTodo.title=&apos;&apos;;
+      this.newTodo.date=&apos;&apos;;
+    }
+  }
+
+  deleteTod(todo){
+    this.todoService.deleteTodoById(todo.id);
+  }
+
+  completeTodo(todo){
+    this.todoService.compoleteTodo(todo);
+  }
+
+  open(content,todo){
+    this.modalService.open(content, {ariaLabelledBy: &apos;modal-basic-title&apos;});
+  }
+
+  updateTodo(){
+
+  }
+}
+</code></pre><ul>
+<li><p>jika dijalankan hasil sementara seperti pada gambar berikut:
+<img src="image/chapter1/img25.png" alt=""></p>
+</li>
+<li><p>Jika lihat gambar diatas modal tak keluar pada semestinya. Untuk itu lakukan hal berikut</p>
+</li>
+<li><p>buka file <strong>app.component.html</strong> tambahkan <strong>formcontrol</strong> pada  <strong>inputan id=dateOfBirth</strong> rubah semua <strong>dateOfBirth</strong> menjadi <strong>date</strong> seperti code berikut <strong>(pada class=mmodal-body)</strong></p>
+</li>
+</ul>
+<pre><code>  &lt;div class=&quot;modal-body&quot;&gt;
+    &lt;form [formGroup]=&quot;editForm&quot;&gt;
+      &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label for=&quot;date&quot;&gt;Completion Date&lt;/label&gt;
+        &lt;div class=&quot;input-group&quot;&gt;
+          &lt;input
+            id=&quot;date&quot;
+            class=&quot;form-control&quot;
+            formControlName=&quot;date&quot;
+            placeholder=&quot;yyyy-mm-dd&quot;
+            name=&quot;dp&quot;
+            ngbDatepicker
+            #dp=&quot;ngbDatepicker&quot;
+          /&gt;
+          &lt;div class=&quot;input-group-append&quot;&gt;
+            &lt;button
+              class=&quot;btn btn-outline-secondary calendar&quot;
+              (click)=&quot;dp.toggle()&quot;
+              type=&quot;button&quot;
+            &gt;&lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;
+  &lt;/div&gt;
+</code></pre><ul>
+<li>tambahkan <strong>class=form-group</strong>  pada <strong>class=modal-body</strong> sehingga hasil code seperti berikut</li>
+</ul>
+<pre><code>  &lt;div class=&quot;modal-body&quot;&gt;
+    &lt;form [formGroup]=&quot;editForm&quot;&gt;
+      &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label for=&quot;&quot;&gt;Title&lt;/label&gt;
+          &lt;div class=&quot;input-group&quot;&gt;
+            &lt;input type=&quot;text&quot; class=&quot;form-control&quot; formControlName=&quot;title&quot;&gt;
+          &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label for=&quot;date&quot;&gt;Completion Date&lt;/label&gt;
+        &lt;div class=&quot;input-group&quot;&gt;
+          &lt;input
+            id=&quot;date&quot;
+            class=&quot;form-control&quot;
+            formControlName=&quot;date&quot;
+            placeholder=&quot;yyyy-mm-dd&quot;
+            name=&quot;dp&quot;
+            ngbDatepicker
+            #dp=&quot;ngbDatepicker&quot;
+          /&gt;
+          &lt;div class=&quot;input-group-append&quot;&gt;
+            &lt;button
+              class=&quot;btn btn-outline-secondary calendar&quot;
+              (click)=&quot;dp.toggle()&quot;
+              type=&quot;button&quot;
+            &gt;&lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;
+  &lt;/div&gt;
+</code></pre><ul>
+<li>buka file <strong>app.component.ts</strong> tambahkan method <strong>initForm</strong>, tambahkan juga pada method <strong>open</strong> code berikut <strong>this.initForm();</strong> dan tambahkan pada  <strong>constructor(private fb:FormBuilder)</strong> sehingga keseluruhan codenya menjadi seperti berikut:</li>
+</ul>
+<pre><code>import { Component } from &apos;@angular/core&apos;;
+import { Todo } from &apos;./class/todo&apos;;
+import { TodoDataService } from &apos;./services/todo-data.service&apos;;
+import { NgbModal } from &apos;@ng-bootstrap/ng-bootstrap&apos;;
+import { FormGroup, FormBuilder, Validators } from &apos;@angular/forms&apos;;
+import { Content } from &apos;@angular/compiler/src/render3/r3_ast&apos;;
+
+@Component({
+  selector: &apos;app-root&apos;,
+  templateUrl: &apos;./app.component.html&apos;,
+  styleUrls: [&apos;./app.component.css&apos;]
+})
+export class AppComponent {
+
+  newTodo:Todo=new Todo();
+  editForm:FormGroup;
+
+  constructor( 
+    private todoService:TodoDataService,
+    private modalService: NgbModal,
+    private fb:FormBuilder){}
+
+  get todos(){
+    return this.todoService.getAllTodos();
+  }
+
+  addTodo(){
+    // console.log(this.newTodo);
+    if(this.newTodo.title &amp;&amp; this.newTodo.date){
+      this.todoService.addTodos(this.newTodo);
+      //cek isi new todo apakah berhasil
+      // console.log(this.newTodo);
+      this.newTodo= new Todo();
+      this.newTodo.title=&apos;&apos;;
+      this.newTodo.date=&apos;&apos;;
+    }
+  }
+
+  deleteTod(todo){
+    this.todoService.deleteTodoById(todo.id);
+  }
+
+  completeTodo(todo){
+    this.todoService.compoleteTodo(todo);
+  }
+
+  open(content,todo){
+    this.initForm();
+    this.modalService.open(content, {ariaLabelledBy: &apos;modal-basic-title&apos;});
+  }
+
+  updateTodo(){
+
+  }
+
+  initForm(){
+    this.editForm=this.fb.group({
+      title:[&apos;&apos;,Validators.required],
+      date:[&apos;&apos;,Validators.required]
+    });
+
+  }
+}
+</code></pre><ul>
+<li>jika berhasil maka hasilnya seperti berikut:
+<img src="image/chapter1/img26.png" alt=""></li>
+</ul>
 
                                 
                                 </section>
@@ -671,7 +1054,7 @@ export class AppComponent {
 
             
                 
-                <a href="15.html" class="navigation navigation-prev " aria-label="Previous page: 15. Local Storage">
+                <a href="15.html" class="navigation navigation-prev " aria-label="Previous page: 15.Delete Method in Todo Service">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
@@ -687,7 +1070,7 @@ export class AppComponent {
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"16. Storing User","level":"1.17","depth":1,"next":{"title":"17. Admin","level":"1.18","depth":1,"path":"17.md","ref":"17.md","articles":[]},"previous":{"title":"15. Local Storage","level":"1.16","depth":1,"path":"15.md","ref":"15.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"16.md","mtime":"2019-01-21T14:11:44.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-25T00:06:19.281Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"16.Add Update Modal","level":"1.17","depth":1,"next":{"title":"17. Admin","level":"1.18","depth":1,"path":"17.md","ref":"17.md","articles":[]},"previous":{"title":"15.Delete Method in Todo Service","level":"1.16","depth":1,"path":"15.md","ref":"15.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"16.md","mtime":"2019-01-25T23:51:03.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-25T14:48:44.214Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

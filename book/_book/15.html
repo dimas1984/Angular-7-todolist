@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>15. Local Storage · GitBook</title>
+        <title>15.Delete Method in Todo Service · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -276,7 +276,7 @@
                 <a href="14.html">
             
                     
-                    14. Auth Guard
+                    14.Icon Check
             
                 </a>
             
@@ -289,7 +289,7 @@
                 <a href="15.html">
             
                     
-                    15. Local Storage
+                    15.Delete Method in Todo Service
             
                 </a>
             
@@ -302,7 +302,7 @@
                 <a href="16.html">
             
                     
-                    16. Storing User
+                    16.Add Update Modal
             
                 </a>
             
@@ -535,7 +535,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >15. Local Storage</a>
+        <a href="." >15.Delete Method in Todo Service</a>
     </h1>
 </div>
 
@@ -552,102 +552,114 @@
                                 
                                 <h1 id="kemampuan-akhir-yang-direncanakan">Kemampuan Akhir Yang Direncanakan</h1>
 <ul>
-<li>Peserta mengetahui penggunaan localstorage pada angular</li>
+<li>Peserta mampu membuat delete method di service Todo</li>
 </ul>
-<h1 id="percobaan-14-localstorage">Percobaan 14 LocalStorage</h1>
+<h1 id="percobaan-membuat-method-delete">Percobaan membuat method delete</h1>
 <ul>
-<li><p>pada percobaan sebelum pada saat kita belum login kita ketik <strong>localhost:4200/check-out</strong> tidak bisa dikarenakan adanya auth guard sehingga user tidak bisa sembarangan masuk ke halaman lain sebelum login</p>
-</li>
-<li><p>pada percobaan berikut ini kita akan mencoba mengredirect user ke halaman yang telah diketikan saat sebelum login menggunakan <strong>localstorage</strong></p>
-</li>
-<li><p>langkah pertama buka file <strong>auth-guard.service.ts</strong> dan rubah beberapa code sehingga menjadi seperti berikut:</p>
-</li>
+<li>buka file <strong>todo-data.service.ts</strong> buatlah method dengan nama delete</li>
 </ul>
-<pre><code>import { Observable} from &apos;rxjs&apos;;
-import { AuthService } from &apos;./auth.service&apos;;
-import { Injectable } from &apos;@angular/core&apos;;
-import { Router, RouterStateSnapshot,ActivatedRouteSnapshot,CanActivate} from &apos;@angular/router&apos;;
-import { map } from &apos;rxjs/operators&apos;;
+<pre><code>
+deleteTodoById(id:number){
+    let todos = this.getAllTodos();
+    todos = todos.filter(todo =&gt; todo.id!==id);
+    this.setTodo(todos);
+  }
+</code></pre><ul>
+<li>sehingga code keseluruhan pada <strong>todo-data.service.ts</strong></li>
+</ul>
+<pre><code>import { Injectable } from &quot;@angular/core&quot;;
+import { Todo } from &quot;../class/todo&quot;;
 
 @Injectable({
-  providedIn: &apos;root&apos;
+  providedIn: &quot;root&quot;
 })
+export class TodoDataService {
+  lastid = 0;
+  todos: Todo[] = [];
 
-// @Injectable()
-export class AuthGuard implements CanActivate{
-
-
-  constructor(private auth:AuthService,private router:Router) { }
-
-  // tambahkan parameter route,state:RouterStateSnapshot
-    canActivate(route,state:RouterStateSnapshot): Observable&lt;boolean&gt; | Promise&lt;boolean&gt; | boolean
-    {
-      return this.auth.user$.pipe(
-        map(user =&gt;{
-          if (user){
-            return true;
-          } 
-          // tambahkan Sets query parameters to the URL.
-          this.router.navigate([&quot;/login&quot;],{queryParams:{returnUrl:state.url}});
-          return false;
-        })
-      );
+  constructor() {
+    const todos=this.getAllTodos();
+    if (todos.length===0){
+      this.lastid=0;
+    }else {
+      const maxId= todos[todos.length-1].id;
+      this.lastid = maxId+1;
     }
+  }
+
+  addTodos(todo: Todo): TodoDataService {
+    if (!todo.id) {
+      todo.id = ++this.lastid;
+    }
+    const todos = this.getAllTodos();
+    todos.push(todo);
+    //add code
+    this.setTodo(todos);
+    return this;
+  }
+
+  getAllTodos() {
+    const storageItem = JSON.parse(window.localStorage.getItem(&quot;app-todos&quot;));
+    if (storageItem === null) {
+      return [];
+    } else {
+      return storageItem.todos;
+    }
+  }
+
+  getTodoById(id:number):Todo{
+    const todos=this.getAllTodos();
+    return todos.filter(todo=&gt;todo.id===id).pop();
+  }
+
+  updateTodo(id:number,values:Object={}){
+    const todo=this.getTodoById(id);
+    if(!todo){
+      return null;
+    }
+    let todos = this.getAllTodos();
+    todos = todos.filter(t=&gt;t.id !== todo.id);
+    const todoValues= Object.assign(todo,values);
+    todos.push(todoValues);
+    this.setTodo(todos);
+  }
+
+  compoleteTodo(todo:Todo){
+    const updateTodo= this.updateTodo(todo.id,{
+      complete:!todo.complete
+    });
+    return updateTodo;
+  }
+
+  deleteTodoById(id:number){
+    let todos = this.getAllTodos();
+    todos = todos.filter(todo =&gt; todo.id!==id);
+    this.setTodo(todos);
+  }
+
+  setTodo(usertodos: Todo[]) {
+    window.localStorage.setItem(
+      &quot;app-todos&quot;,
+      JSON.stringify({ todos: usertodos })
+    );
+  }
 }
 </code></pre><ul>
-<li>jika benar ketik <strong>localhost:4200/check-out</strong> dengan kondosi belum login.Jika benar maka tampilannya akan seperti berikut</li>
+<li>buka file <strong>app.component.html</strong> dan tambahkan function click </li>
 </ul>
-<p><img src="image/chapter2/img11.png" alt=""></p>
-<ul>
-<li>buka file <strong>auth.service.ts</strong> tambahkan beberapa code sehingga keseluruhan code seperti berikut</li>
-</ul>
-<pre><code>import { Injectable } from &apos;@angular/core&apos;;
-import { AngularFireAuth } from &apos;angularfire2/auth&apos;;
-import * as firebase from &apos;firebase&apos;;
-import { Observable } from &apos;rxjs/internal/Observable&apos;;
-import { ActivatedRoute } from &apos;@angular/router&apos;;
-
-@Injectable({
-  providedIn: &apos;root&apos;
-})
-export class AuthService {
-
-  user$:Observable&lt;firebase.User&gt;;
-
-  //tambahkan parameter ActivedRoute
-  constructor(private afAuth:AngularFireAuth, private route :ActivatedRoute) {
-
-    this.user$= afAuth.authState;
-   }
-
-   // tambahakan property snapshot pada route dan property queryParamMap
-  login(){
-    let returnUrl=this.route.snapshot.queryParamMap.get(&apos;returnUrl&apos;)||&apos;/&apos;;
-    localStorage.setItem(&apos;returnUrl&apos;,returnUrl);
-    this.afAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
-  }
-
-  logout(){
-    this.afAuth.auth.signOut();
-  }
-}
+<pre><code>    &lt;button class=&quot;btn btn-danger&quot;&gt;&lt;i class=&quot;fa fa-trash&quot; (click)=&quot;deleteTod(todo)&quot;&gt;&lt;/i&gt;&lt;/button&gt;
 </code></pre><ul>
-<li>buka file <strong>app.component.ts</strong> tambahkan code berikut pada <strong>class appcomponent</strong></li>
+<li>buka file <strong>app.component.ts</strong> tambahkan method deleteTodoById </li>
 </ul>
-<pre><code> constructor(private auth:AuthService,private router:Router){
-    auth.user$.subscribe(user=&gt;{
-      if(user){
-        let returnUrl = localStorage.getItem(&apos;returnUrl&apos;);
-        router.navigateByUrl(returnUrl);
-      }
-    })
+<pre><code>deleteTod(todo){
+    this.todoService.deleteTodoById(todo.id);
   }
 </code></pre><ul>
-<li>sehingga keseluruhan code <strong>app.component.ts</strong></li>
+<li>sehingga code keseluruhan pada <strong>app.component.ts</strong> sebagai berikut:</li>
 </ul>
 <pre><code>import { Component } from &apos;@angular/core&apos;;
-import { AuthService } from &apos;./auth.service&apos;;
-import { Router } from &apos;@angular/router&apos;;
+import { Todo } from &apos;./class/todo&apos;;
+import { TodoDataService } from &apos;./services/todo-data.service&apos;;
 
 @Component({
   selector: &apos;app-root&apos;,
@@ -655,19 +667,39 @@ import { Router } from &apos;@angular/router&apos;;
   styleUrls: [&apos;./app.component.css&apos;]
 })
 export class AppComponent {
-  constructor(private auth:AuthService,router:Router){
-    auth.user$.subscribe(user=&gt;{
-      if(user){
-        let returnUrl = localStorage.getItem(&apos;returnUrl&apos;);
-        router.navigateByUrl(returnUrl);
-      }
-    })
+
+  newTodo:Todo=new Todo();
+
+  constructor( private todoService:TodoDataService){}
+
+  get todos(){
+    return this.todoService.getAllTodos();
+  }
+
+  addTodo(){
+    // console.log(this.newTodo);
+    if(this.newTodo.title &amp;&amp; this.newTodo.date){
+      this.todoService.addTodos(this.newTodo);
+      //cek isi new todo apakah berhasil
+      // console.log(this.newTodo);
+      this.newTodo= new Todo();
+      this.newTodo.title=&apos;&apos;;
+      this.newTodo.date=&apos;&apos;;
+    }
+  }
+
+  deleteTod(todo){
+    this.todoService.deleteTodoById(todo.id);
+  }
+
+  completeTodo(todo){
+    this.todoService.compoleteTodo(todo);
   }
 }
 </code></pre><ul>
-<li>jika benar maka user akan diarahkan langsung kehalaman check-out setelah login <strong>dengan syarat user harus mengetik localhost:4200/check-out dengan kondisi belum login</strong></li>
+<li>jika berhasil maka data akan berhasil dihapus
+<img src="image/chapter1/img23.png" alt=""></li>
 </ul>
-<p><img src="image/chapter2/img12.png" alt=""></p>
 
                                 
                                 </section>
@@ -695,12 +727,12 @@ export class AppComponent {
 
             
                 
-                <a href="14.html" class="navigation navigation-prev " aria-label="Previous page: 14. Auth Guard">
+                <a href="14.html" class="navigation navigation-prev " aria-label="Previous page: 14.Icon Check">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="16.html" class="navigation navigation-next " aria-label="Next page: 16. Storing User">
+                <a href="16.html" class="navigation navigation-next " aria-label="Next page: 16.Add Update Modal">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -711,7 +743,7 @@ export class AppComponent {
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"15. Local Storage","level":"1.16","depth":1,"next":{"title":"16. Storing User","level":"1.17","depth":1,"path":"16.md","ref":"16.md","articles":[]},"previous":{"title":"14. Auth Guard","level":"1.15","depth":1,"path":"14.md","ref":"14.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"15.md","mtime":"2019-01-21T14:11:36.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-25T00:06:19.281Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"15.Delete Method in Todo Service","level":"1.16","depth":1,"next":{"title":"16.Add Update Modal","level":"1.17","depth":1,"path":"16.md","ref":"16.md","articles":[]},"previous":{"title":"14.Icon Check","level":"1.15","depth":1,"path":"14.md","ref":"14.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"15.md","mtime":"2019-01-25T14:27:56.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-25T14:48:44.214Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

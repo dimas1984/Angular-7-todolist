@@ -62,6 +62,12 @@ export class TodoDataService {
     return updateTodo;
   }
 
+  deleteTodoById(id:number){
+    let todos = this.getAllTodos();
+    todos = todos.filter(todo => todo.id!==id);
+    this.setTodo(todos);
+  }
+
   setTodo(usertodos: Todo[]) {
     window.localStorage.setItem(
       "app-todos",
