@@ -71,7 +71,10 @@
           ></i>
         </td>
         <td>{{ todo.title }}</td>
-        <td>{{ todo.date.day }}-{{ todo.date.month }}-{{ todo.date.year }}</td>
+        <td *ngIf="todo.date.year && todo.date.month">
+          {{ todo.date.day }}-{{ todo.date.month }}-{{ todo.date.year }}
+        </td>
+        <td *ngIf="todo.date && !todo.date.month">{{ todo.date }}</td>
         <td *ngIf="!todo.complete">not complete</td>
         <td *ngIf="todo.complete">complete</td>
         <td class="icons">
@@ -82,7 +85,13 @@
           >
             <i class="fa fa-check"></i>
           </button>
-          <button class="btn btn-primary" (click)="open(content,todo)"><i class="fa fa-pencil"></i></button>
+          <button
+            class="btn btn-primary"
+            (click)="open(content, todo)"
+            [disabled]="todo.complete"
+          >
+            <i class="fa fa-pencil"></i>
+          </button>
           <button class="btn btn-danger">
             <i class="fa fa-trash" (click)="deleteTod(todo)"></i>
           </button>
@@ -94,7 +103,7 @@
 
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <h4 class="modal-title" id="modal-basic-title">Edit TODO</h4>
     <button
       type="button"
       class="close"
@@ -105,12 +114,23 @@
     </button>
   </div>
   <div class="modal-body">
+    <!-- alert -->
+    <ngb-alert *ngIf="isEdited" type="success">
+      <strong>Todo is Updated successfull</strong>
+    </ngb-alert>
+
     <form [formGroup]="editForm">
       <div class="form-group">
         <label for="">Title</label>
-          <div class="input-group">
-            <input type="text" class="form-control" formControlName="title">
-          </div>
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            formControlName="title"
+            name="title"
+            value="{{ titleValue }}"
+          />
+        </div>
       </div>
       <div class="form-group">
         <label for="date">Completion Date</label>
@@ -119,8 +139,8 @@
             id="date"
             class="form-control"
             formControlName="date"
-            placeholder="yyyy-mm-dd"
             name="dp"
+            value="{{ dateValue }}"
             ngbDatepicker
             #dp="ngbDatepicker"
           />
@@ -129,7 +149,9 @@
               class="btn btn-outline-secondary calendar"
               (click)="dp.toggle()"
               type="button"
-            ></button>
+            >
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+            </button>
           </div>
         </div>
       </div>
@@ -141,14 +163,10 @@
       class="btn btn-danger"
       (click)="modal.close('Save click')"
     >
+      Cancel
+    </button>
+    <button type="button" class="btn btn-primary" (click)="updateTodo()">
       Save
     </button>
-    <button
-    type="button"
-    class="btn btn-primary"
-    (click)="updateTodo()"
-  >
-    Cancel
-  </button>
   </div>
 </ng-template>

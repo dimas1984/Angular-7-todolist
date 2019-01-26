@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>19. Product-Form · GitBook</title>
+        <title>19.Dismis Modal · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -315,7 +315,7 @@
                 <a href="17.html">
             
                     
-                    17. Admin
+                    17.Update Method
             
                 </a>
             
@@ -328,7 +328,7 @@
                 <a href="18.html">
             
                     
-                    18. menu admin dan menu user
+                    18.Fix Update Method
             
                 </a>
             
@@ -341,7 +341,7 @@
                 <a href="19.html">
             
                     
-                    19. Product-Form
+                    19.Dismis Modal
             
                 </a>
             
@@ -354,150 +354,7 @@
                 <a href="20.html">
             
                     
-                    20. DropDown List 
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.22" data-path="21.html">
-            
-                <a href="21.html">
-            
-                    
-                    21. Insert Product 
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.23" data-path="22.html">
-            
-                <a href="22.html">
-            
-                    
-                    22. validasi 
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.24" data-path="23.html">
-            
-                <a href="23.html">
-            
-                    
-                    23. custom-validasi 
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.25" data-path="24.html">
-            
-                <a href="24.html">
-            
-                    
-                    24. Bootstrap Card 
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.26" data-path="25.html">
-            
-                <a href="25.html">
-            
-                    
-                    25. Display List Product 
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.27" data-path="26.html">
-            
-                <a href="26.html">
-            
-                    
-                    26. Edit Product
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.28" data-path="27.html">
-            
-                <a href="27.html">
-            
-                    
-                    27. Update Product
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.29" data-path="28.html">
-            
-                <a href="28.html">
-            
-                    
-                    28. Delete Product
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.30" data-path="29.html">
-            
-                <a href="29.html">
-            
-                    
-                    29. Searching Product
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.31" data-path="30.html">
-            
-                <a href="30.html">
-            
-                    
-                    30. Searching interface Product
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.32" data-path="31.html">
-            
-                <a href="31.html">
-            
-                    
-                    31. Menambahkan datatable
+                    20.Disable Button edit
             
                 </a>
             
@@ -535,7 +392,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >19. Product-Form</a>
+        <a href="." >19.Dismis Modal</a>
     </h1>
 </div>
 
@@ -552,87 +409,23 @@
                                 
                                 <h1 id="kemampuan-akhir-yang-direncanakan">Kemampuan Akhir Yang Direncanakan</h1>
 <ul>
-<li>Peserta mampu membuat form untuk product</li>
+<li>Peserta mampu membuat dismiss modal</li>
 </ul>
-<h1 id="percobaan-18-membuat-form-menggunakan-bootstrap">Percobaan 18 membuat form menggunakan bootstrap</h1>
+<h1 id="percobaan-membuat-dismiss-modal">Percobaan membuat dismiss modal</h1>
 <ul>
-<li>langkah pertama  kita generate <strong>product-form</strong></li>
+<li>Pada percobaan sebelumnya pada saat kita save modal tidak secara otomatis tertutup oleh karena itu kita harus tambahkan <strong>function setTimeOut</strong></li>
+<li>buka file <strong>app.component.ts</strong> tambahkan code pada method <strong>updateTODO</strong></li>
 </ul>
-<pre><code>ng g c admin/product-form
+<pre><code>  updateTodo(){
+    this.todoService.updateTodo(this.todo.id,this.editForm.value);
+    this.isEdited=true;
+    setTimeout(() =&gt; {
+      this.modalService.dismissAll();
+    }, 3000);
+  }
 </code></pre><ul>
-<li>buka file <strong>admin-products.component.html</strong> tambahkan code berikut </li>
+<li>lakukan percobaan jika benar maka dalam waktu 3 detik setelah button save disimpan modal akan tertutup</li>
 </ul>
-<pre><code>&lt;a routerLink=&quot;/admin/admin-products/new&quot; class=&quot;btn btn-primary&quot;&gt; New Product&lt;/a&gt;
-</code></pre><ul>
-<li>buka file <strong>app.module.ts</strong> tambahkan path baru seperti berikut </li>
-</ul>
-<pre><code>{path:&apos;admin/admin-products/new&apos;,
-  component:ProductFormComponent,
-  canActivate:[AuthGuard,AdminAuthGuard]},
-</code></pre><ul>
-<li>sehingga keseluruhan code menjadi</li>
-</ul>
-<pre><code> RouterModule.forRoot(
-      [
-        {path:&apos;&apos;,component:HomeComponent},
-        {path:&apos;products&apos;,component:ProductsComponent},
-        {path:&apos;shopping-chart&apos;,component:ShoppingChartComponent},
-        {path:&apos;check-out&apos;,component:CheckOutComponent, canActivate:[AuthGuard]},
-        {path:&apos;order-success&apos;,component:OrderSuccessComponent,canActivate:[AuthGuard]},
-        {path:&apos;orders&apos;,component:MyOrdersComponent,canActivate:[AuthGuard]},
-        {path:&apos;login&apos;,component:LoginComponent},
-        {path:&apos;admin/admin-products&apos;,
-              component:AdminProductsComponent,
-              canActivate:[AuthGuard,AdminAuthGuard]},
-        {path:&apos;admin/admin-products/new&apos;,
-              component:ProductFormComponent,
-              canActivate:[AuthGuard,AdminAuthGuard]},
-        {path:&apos;admin/admin-orders&apos;,
-              component:AdminOrdersComponent,
-              canActivate:[AuthGuard,AdminAuthGuard]},        
-      ]
-    )
-</code></pre><ul>
-<li>jika berhasil maka hasil seperti gambar berikut</li>
-</ul>
-<p><img src="image/chapter3/img1.png" alt="">
-<img src="image/chapter3/img2.png" alt=""></p>
-<ul>
-<li>buka file <strong>product-form.component.html</strong> tambahkan code berikut :</li>
-</ul>
-<pre><code>&lt;form&gt;
-  &lt;div class=&quot;form-group&quot;&gt;
-    &lt;label for=&quot;title&quot;&gt;Title&lt;/label&gt;
-    &lt;input type=&quot;text&quot; id=&quot;title&quot; class=&quot;form-control&quot;&gt;
-  &lt;/div&gt;
-
-  &lt;div class=&quot;form-group&quot;&gt;
-  &lt;label for=&quot;price&quot;&gt;Price&lt;/label&gt;
-  &lt;div class=&quot;input-group mb-3&quot;&gt;
-      &lt;div class=&quot;input-group-prepend&quot;&gt;
-        &lt;span class=&quot;input-group-text&quot;&gt;$&lt;/span&gt;
-      &lt;/div&gt;
-      &lt;input type=&quot;text&quot; class=&quot;form-control&quot;&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
-
-  &lt;div class=&quot;form-group&quot;&gt;
-    &lt;label for=&quot;category&quot;&gt;Category&lt;/label&gt;
-    &lt;select type=&quot;text&quot; id=&quot;category&quot; class=&quot;form-control&quot;&gt;
-      &lt;option value=&quot;&quot;&gt;&lt;/option&gt;
-    &lt;/select&gt;
-  &lt;/div&gt;
-
-  &lt;div class=&quot;form-group&quot;&gt;
-    &lt;label for=&quot;image-url&quot;&gt;Image Url&lt;/label&gt;
-    &lt;input type=&quot;text&quot; id=&quot;image-url&quot; class=&quot;form-control&quot;&gt;
-  &lt;/div&gt;
-  &lt;button class=&quot;btn btn-primary&quot;&gt;Save&lt;/button&gt;
-&lt;/form&gt;
-</code></pre><ul>
-<li>sehingga hasilnya seperti pada gambar berikut</li>
-</ul>
-<p><img src="image/chapter3/img3.png" alt=""></p>
 
                                 
                                 </section>
@@ -660,12 +453,12 @@
 
             
                 
-                <a href="18.html" class="navigation navigation-prev " aria-label="Previous page: 18. menu admin dan menu user">
+                <a href="18.html" class="navigation navigation-prev " aria-label="Previous page: 18.Fix Update Method">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="20.html" class="navigation navigation-next " aria-label="Next page: 20. DropDown List ">
+                <a href="20.html" class="navigation navigation-next " aria-label="Next page: 20.Disable Button edit">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -676,7 +469,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"19. Product-Form","level":"1.20","depth":1,"next":{"title":"20. DropDown List ","level":"1.21","depth":1,"path":"20.md","ref":"20.md","articles":[]},"previous":{"title":"18. menu admin dan menu user","level":"1.19","depth":1,"path":"18.md","ref":"18.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"19.md","mtime":"2019-01-21T14:45:33.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-25T14:48:44.214Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"19.Dismis Modal","level":"1.20","depth":1,"next":{"title":"20.Disable Button edit","level":"1.21","depth":1,"path":"20.md","ref":"20.md","articles":[]},"previous":{"title":"18.Fix Update Method","level":"1.19","depth":1,"path":"18.md","ref":"18.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"19.md","mtime":"2019-01-26T14:57:04.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-26T14:47:55.426Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

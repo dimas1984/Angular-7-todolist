@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>17. Admin · GitBook</title>
+        <title>17.Update Method · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -315,7 +315,7 @@
                 <a href="17.html">
             
                     
-                    17. Admin
+                    17.Update Method
             
                 </a>
             
@@ -328,7 +328,7 @@
                 <a href="18.html">
             
                     
-                    18. menu admin dan menu user
+                    18.Fix Update Method
             
                 </a>
             
@@ -341,7 +341,7 @@
                 <a href="19.html">
             
                     
-                    19. Product-Form
+                    19.Dismis Modal
             
                 </a>
             
@@ -354,150 +354,7 @@
                 <a href="20.html">
             
                     
-                    20. DropDown List 
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.22" data-path="21.html">
-            
-                <a href="21.html">
-            
-                    
-                    21. Insert Product 
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.23" data-path="22.html">
-            
-                <a href="22.html">
-            
-                    
-                    22. validasi 
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.24" data-path="23.html">
-            
-                <a href="23.html">
-            
-                    
-                    23. custom-validasi 
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.25" data-path="24.html">
-            
-                <a href="24.html">
-            
-                    
-                    24. Bootstrap Card 
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.26" data-path="25.html">
-            
-                <a href="25.html">
-            
-                    
-                    25. Display List Product 
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.27" data-path="26.html">
-            
-                <a href="26.html">
-            
-                    
-                    26. Edit Product
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.28" data-path="27.html">
-            
-                <a href="27.html">
-            
-                    
-                    27. Update Product
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.29" data-path="28.html">
-            
-                <a href="28.html">
-            
-                    
-                    28. Delete Product
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.30" data-path="29.html">
-            
-                <a href="29.html">
-            
-                    
-                    29. Searching Product
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.31" data-path="30.html">
-            
-                <a href="30.html">
-            
-                    
-                    30. Searching interface Product
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.32" data-path="31.html">
-            
-                <a href="31.html">
-            
-                    
-                    31. Menambahkan datatable
+                    20.Disable Button edit
             
                 </a>
             
@@ -535,7 +392,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >17. Admin</a>
+        <a href="." >17.Update Method</a>
     </h1>
 </div>
 
@@ -552,122 +409,172 @@
                                 
                                 <h1 id="kemampuan-akhir-yang-direncanakan">Kemampuan Akhir Yang Direncanakan</h1>
 <ul>
-<li>Peserta mampu membuat service guard untuk admin</li>
+<li>Peserta mampu membuat update method</li>
 </ul>
-<h1 id="percobaan-16-membuat-service-guard-untuk-admin">Percobaan 16 membuat service guard untuk admin</h1>
+<h1 id="percobaan-menambahkan-code-pada-update-method">Percobaan menambahkan code pada update method</h1>
 <ul>
-<li>tambahkan child baru seperti pada gambar</li>
+<li>langkah berikutnya buka file <strong>app.component.html</strong> hapus <strong>placehoder=&quot;yyyy-mm-dd&quot;</strong> dan ganti label <strong>profile update</strong> menjadi <strong>Edit Todo</strong>, tambahkan juga code <i class="fa fa-calendar" aria-hidden="true"> sehingga codenya seperti berikut </i></li>
 </ul>
-<p><img src="image/chapter2/img19.png" alt=""></p>
-<ul>
-<li>jika berhasil maka tampilannya akan seperti berikut </li>
-</ul>
-<p><img src="image/chapter2/img20.png" alt=""></p>
-<ul>
-<li>generate servis baru untuk admin</li>
-</ul>
-<pre><code>ng g s admin-auth-guard
+<pre><code> &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label for=&quot;date&quot;&gt;Completion Date&lt;/label&gt;
+        &lt;div class=&quot;input-group&quot;&gt;
+          &lt;input
+            id=&quot;date&quot;
+            class=&quot;form-control&quot;
+            formControlName=&quot;date&quot;
+            name=&quot;dp&quot;
+            ngbDatepicker
+            #dp=&quot;ngbDatepicker&quot;
+          /&gt;
+          &lt;div class=&quot;input-group-append&quot;&gt;
+            &lt;button
+              class=&quot;btn btn-outline-secondary calendar&quot;
+              (click)=&quot;dp.toggle()&quot;
+              type=&quot;button&quot;
+            &gt;&lt;i class=&quot;fa fa-calendar&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
 </code></pre><ul>
-<li>buka file <strong>app.module.ts</strong> tambahkan pada providers <strong>AdminAuthGuardService rename menjadi AdminAuthGuard</strong></li>
+<li>buka file <strong>app.component.ts</strong> tambahkan property <strong>todo,titlteValue,dateValue</strong> seperti berikut </li>
 </ul>
-<pre><code>  providers: [
-    AuthService,
-    AuthGuard,
-    UserService,
-    AdminAuthGuard
-  ],
+<pre><code>export class AppComponent {
+
+  newTodo:Todo=new Todo();
+  editForm:FormGroup;
+  todo:any;
+  titleValue:string;
+  dateValue:string;
+
+  constructor( 
+    private todoService:TodoDataService,
+    private modalService: NgbModal,
+    private fb:FormBuilder){}
 </code></pre><ul>
-<li>buka file <strong>admin-auth-guard.service.ts</strong> dan tambahkan code berikut</li>
+<li>kita cek apakah pada method <strong>open</strong> isi dari parameter todo tambahkan code <strong>console.log(todo)</strong></li>
 </ul>
-<pre><code>import { Injectable } from &apos;@angular/core&apos;;
-import { CanActivate } from &apos;@angular/router&apos;;
-import { AuthService } from &apos;./auth.service&apos;;
-import { AppUser } from &apos;./models/app-user&apos;;
-import { map, switchMap} from &apos;rxjs/operators&apos;;
-import {UserService} from &apos;./user.service&apos;;
-import {Observable} from &apos;rxjs&apos;;
-
-@Injectable({
-  providedIn: &apos;root&apos;
-})
-export class AdminAuthGuard implements CanActivate{
-
-  constructor(private auth:AuthService,private userService:UserService) {}
-
-  canActivate():Observable&lt;boolean&gt;{
-    return this.auth.user$.pipe(
-      switchMap(user=&gt; this.userService.get(user.uid)),
-      map((appUser:AppUser)=&gt;appUser.isAdmin)
-    )
+<pre><code> open(content,todo){
+    console.log(todo);
+    this.initForm();
+    this.modalService.open(content, {ariaLabelledBy: &apos;modal-basic-title&apos;});
   }
-}
-</code></pre><ul>
-<li>buka file <strong>user.services.ts</strong> dan tambahkan code berikut:</li>
-</ul>
-<pre><code>import { Injectable } from &apos;@angular/core&apos;;
-import * as firebase from &apos;firebase&apos;;
-import { AngularFireDatabase } from &apos;angularfire2/database&apos;;
-
-
-
-@Injectable({
-  providedIn: &apos;root&apos;
-})
-export class UserService {
-
-  constructor(private db:AngularFireDatabase) { }
-
-  save(user:firebase.User){
-    this.db.object(&apos;/users/&apos; + user.uid).update({
-      nama: user.displayName,
-      email:user.email
-    });
-  }
-
-  // tambahkan get method
-  get(uid:string){
-    return this.db.object(&apos;/users/&apos;+uid).valueChanges();
-  }
-}
-</code></pre><ul>
-<li>buatlah satu folder dengan nama <strong>models</strong> di <strong>oshop/app</strong>dan buatlah file dengan nama <strong>app-user.ts</strong> didalam folder tersebut</li>
-<li>buka file <strong>app-user.ts</strong> tambahkan code berikut:</li>
-</ul>
-<pre><code>export interface AppUser{
-    name:string;
-    email:string;
-    isAdmin:boolean;
-}
-</code></pre><ul>
-<li>buka file <strong>app.module.ts</strong> tambahkan code <strong>AdminAuthGuard</strong> pada <strong>path admin/admin-products dan admin/admin-orders</strong> seperti code dibawah ini</li>
-</ul>
-<pre><code>RouterModule.forRoot(
-      [
-        {path:&apos;&apos;,component:HomeComponent},
-        {path:&apos;products&apos;,component:ProductsComponent},
-        {path:&apos;shopping-chart&apos;,component:ShoppingChartComponent},
-        {path:&apos;check-out&apos;,component:CheckOutComponent, canActivate:[AuthGuard]},
-        {path:&apos;order-success&apos;,component:OrderSuccessComponent,canActivate:[AuthGuard]},
-        {path:&apos;orders&apos;,component:MyOrdersComponent,canActivate:[AuthGuard]},
-        {path:&apos;login&apos;,component:LoginComponent},
-        {path:&apos;admin/admin-products&apos;,
-              component:AdminProductsComponent,
-              canActivate:[AuthGuard,AdminAuthGuard]},
-        {path:&apos;admin/admin-orders&apos;,
-              component:AdminOrdersComponent,
-              canActivate:[AuthGuard,AdminAuthGuard]},        
-      ]
-    )
-</code></pre><ul>
-<li>untuk mengecek keberhasilan sistem pilih menu <strong>manage order</strong>.Karena posisi awal <strong>isAdmin true</strong> maka kita akan berhasil masuk ke halaman <strong>admin-oreder works</strong> seperti pada gambar berikut</li>
-</ul>
-<p><img src="image/chapter2/img21.png" alt=""></p>
+</code></pre><p><img src="image/chapter1/img27.png" alt=""></p>
 <ul>
-<li>kita coba ganti isAdminnya menjadi false seperti pada gambar</li>
+<li>buka file <strong>app.component.ts</strong> dan tambahkan code berikut pada method <strong>open</strong></li>
+<li>perhatikan pada code <strong>this.titleValue dan this.dateValue itu bukan petik satu(&apos;&apos;) tapi Aksen akut(``)</strong></li>
 </ul>
-<p><img src="image/chapter2/img22.png" alt=""></p>
-<ul>
-<li>kita coba pilih menu <strong>manage order</strong> dan refresh maka lihat hasilnya kita tidak dapat mengakses kembali menu  <strong>manage order</strong></li>
+<pre><code> open(content,todo){
+   open(content,todo){
+    // console.log(todo);
+    this.initForm();
+    this.todo={
+      id: todo.id,
+      title:todo.title,
+      date:todo.date,
+      complete:todo.complete
+    }
+    if(todo.date.year &amp;&amp; todo.date.month){
+      console.log(todo.date.year &amp;&amp; todo.date.month);
+      this.titleValue=`${todo.title}`;
+      this.dateValue=`${todo.date.day}-${todo.date.month}-${todo.date.year}`;
+    }
+    this.modalService.open(content, {ariaLabelledBy: &apos;modal-basic-title&apos;});
+  }
+</code></pre><ul>
+<li>buka file <strong>app.component.html</strong> dan tambahkan <strong>value</strong> pada  <strong>class modal-body</strong> dan <strong>form-group editForm dan form-group completion</strong></li>
+</ul>
+<pre><code> &lt;div class=&quot;modal-body&quot;&gt;
+    &lt;form [formGroup]=&quot;editForm&quot;&gt;
+      &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label for=&quot;&quot;&gt;Title&lt;/label&gt;
+        &lt;div class=&quot;input-group&quot;&gt;
+          &lt;input
+            type=&quot;text&quot;
+            class=&quot;form-control&quot;
+            formControlName=&quot;title&quot;
+            name=&quot;title&quot;
+            value=&quot;{{ titleValue }}&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label for=&quot;date&quot;&gt;Completion Date&lt;/label&gt;
+        &lt;div class=&quot;input-group&quot;&gt;
+          &lt;input
+            id=&quot;date&quot;
+            class=&quot;form-control&quot;
+            formControlName=&quot;date&quot;
+            name=&quot;dp&quot;
+            value=&quot;{{ dateValue }}&quot;
+            ngbDatepicker
+            #dp=&quot;ngbDatepicker&quot;
+          /&gt;
+</code></pre><ul>
+<li><p>jika benar maka hasilnya akan seperti berikut
+<img src="image/chapter1/img28.png" alt=""></p>
+</li>
+<li><p>buka file <strong>app.component.ts</strong> tambahkan beberapa code pada <strong>method updateTodo dan method open</strong> tambahkan juga property <strong>isEdited type boolean</strong></p>
+</li>
+</ul>
+<pre><code> newTodo:Todo=new Todo();
+  editForm:FormGroup;
+  todo:any;
+  titleValue:string;
+  dateValue:string;
+  isEdited:boolean;
+</code></pre><pre><code> updateTodo(){
+    this.todoService.updateTodo(this.todo.id,this.editForm.value);
+    this.isEdited=true;
+  }
+</code></pre><pre><code>  open(content,todo){
+    // console.log(todo);
+    this.isEdited=false;
+    this.initForm();
+    this.todo={
+      id: todo.id,
+      title:todo.title,
+      date:todo.date,
+      complete:todo.complete
+    }
+    if(todo.date.year &amp;&amp; todo.date.month){
+      // console.log(todo.date.year &amp;&amp; todo.date.month);
+      this.titleValue=`${todo.title}` ;
+      this.dateValue=`${todo.date.day}-${todo.date.month}-${todo.date.year}`;
+    }
+    this.modalService.open(content, {ariaLabelledBy: &apos;modal-basic-title&apos;});
+  }
+</code></pre><ul>
+<li>selanjutnya kita tambahkan alert, buka file <strong>app.component.html</strong></li>
+</ul>
+<pre><code>&lt;ngb-alert [dismissible]=&quot;false&quot;&gt;
+    &lt;strong&gt;Warning!&lt;/strong&gt; Better check yourself, you&apos;re not looking too good.
+  &lt;/ngb-alert&gt;
+</code></pre><pre><code>  &lt;div class=&quot;modal-body&quot;&gt;
+    &lt;!-- alert --&gt;
+    &lt;ngb-alert *ngIf=&quot;isEdited&quot; type=&quot;success&quot;&gt;
+        &lt;strong&gt;Todo is Updated successfull&lt;/strong&gt;
+      &lt;/ngb-alert&gt;
+
+    &lt;form [formGroup]=&quot;editForm&quot;&gt;
+      &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label for=&quot;&quot;&gt;Title&lt;/label&gt;
+        &lt;div class=&quot;input-group&quot;&gt;
+</code></pre><ul>
+<li>rubah code button <strong>yang sebelumnya cancel menjadi save dan begitu sebalik</strong> pada <strong>app.component.html</strong> seperti gambar berikut</li>
+</ul>
+<pre><code>    &lt;button
+      type=&quot;button&quot;
+      class=&quot;btn btn-danger&quot;
+      (click)=&quot;modal.close(&apos;Save click&apos;)&quot;
+    &gt;
+      Save
+    &lt;/button&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; (click)=&quot;updateTodo()&quot;&gt;
+      Cancel
+    &lt;/button&gt;
+</code></pre><ul>
+<li>jika berhasil maka akan seperti berikut:
+<img src="image/chapter1/img29.png" alt=""></li>
 </ul>
 
                                 
@@ -701,7 +608,7 @@ export class UserService {
                 </a>
                 
                 
-                <a href="18.html" class="navigation navigation-next " aria-label="Next page: 18. menu admin dan menu user">
+                <a href="18.html" class="navigation navigation-next " aria-label="Next page: 18.Fix Update Method">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -712,7 +619,7 @@ export class UserService {
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"17. Admin","level":"1.18","depth":1,"next":{"title":"18. menu admin dan menu user","level":"1.19","depth":1,"path":"18.md","ref":"18.md","articles":[]},"previous":{"title":"16.Add Update Modal","level":"1.17","depth":1,"path":"16.md","ref":"16.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"17.md","mtime":"2019-01-21T14:11:55.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-25T14:48:44.214Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"17.Update Method","level":"1.18","depth":1,"next":{"title":"18.Fix Update Method","level":"1.19","depth":1,"path":"18.md","ref":"18.md","articles":[]},"previous":{"title":"16.Add Update Modal","level":"1.17","depth":1,"path":"16.md","ref":"16.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"17.md","mtime":"2019-01-26T11:08:41.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-26T14:47:55.426Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

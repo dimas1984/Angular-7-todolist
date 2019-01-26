@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>18. menu admin dan menu user · GitBook</title>
+        <title>18.Fix Update Method · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -315,7 +315,7 @@
                 <a href="17.html">
             
                     
-                    17. Admin
+                    17.Update Method
             
                 </a>
             
@@ -328,7 +328,7 @@
                 <a href="18.html">
             
                     
-                    18. menu admin dan menu user
+                    18.Fix Update Method
             
                 </a>
             
@@ -341,7 +341,7 @@
                 <a href="19.html">
             
                     
-                    19. Product-Form
+                    19.Dismis Modal
             
                 </a>
             
@@ -354,150 +354,7 @@
                 <a href="20.html">
             
                     
-                    20. DropDown List 
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.22" data-path="21.html">
-            
-                <a href="21.html">
-            
-                    
-                    21. Insert Product 
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.23" data-path="22.html">
-            
-                <a href="22.html">
-            
-                    
-                    22. validasi 
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.24" data-path="23.html">
-            
-                <a href="23.html">
-            
-                    
-                    23. custom-validasi 
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.25" data-path="24.html">
-            
-                <a href="24.html">
-            
-                    
-                    24. Bootstrap Card 
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.26" data-path="25.html">
-            
-                <a href="25.html">
-            
-                    
-                    25. Display List Product 
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.27" data-path="26.html">
-            
-                <a href="26.html">
-            
-                    
-                    26. Edit Product
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.28" data-path="27.html">
-            
-                <a href="27.html">
-            
-                    
-                    27. Update Product
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.29" data-path="28.html">
-            
-                <a href="28.html">
-            
-                    
-                    28. Delete Product
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.30" data-path="29.html">
-            
-                <a href="29.html">
-            
-                    
-                    29. Searching Product
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.31" data-path="30.html">
-            
-                <a href="30.html">
-            
-                    
-                    30. Searching interface Product
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.32" data-path="31.html">
-            
-                <a href="31.html">
-            
-                    
-                    31. Menambahkan datatable
+                    20.Disable Button edit
             
                 </a>
             
@@ -535,7 +392,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >18. menu admin dan menu user</a>
+        <a href="." >18.Fix Update Method</a>
     </h1>
 </div>
 
@@ -552,171 +409,126 @@
                                 
                                 <h1 id="kemampuan-akhir-yang-direncanakan">Kemampuan Akhir Yang Direncanakan</h1>
 <ul>
-<li>Peserta mampu mengatur menu-menu untuk admin dan user </li>
+<li>Peserta  mampu memperbaiki fungsi dari update</li>
 </ul>
-<h1 id="percobaan-17-menampilkan-dan-menyembunyikan-link-admin">Percobaan 17 menampilkan dan menyembunyikan link admin</h1>
+<h1 id="percobaan-memperbaiki-fungsi-dari-update">Percobaan memperbaiki fungsi dari update</h1>
 <ul>
-<li>langkah pertama  buka file <strong>admin-auth-guard.service.ts</strong> dan modifikasi code seperti berikut</li>
-</ul>
-<pre><code>import { Injectable } from &apos;@angular/core&apos;;
-import { CanActivate } from &apos;@angular/router&apos;;
-import { AuthService } from &apos;./auth.service&apos;;
-import { map} from &apos;rxjs/operators&apos;;
-import {UserService} from &apos;./user.service&apos;;
-import {Observable} from &apos;rxjs&apos;;
-
-import { AngularFireDatabase } from &apos;angularfire2/database&apos;;
-
-@Injectable({
-  providedIn: &apos;root&apos;
-})
-export class AdminAuthGuard implements CanActivate{
-
-  constructor(private auth:AuthService,private userService:UserService,private db:AngularFireDatabase,) {}
-
-  canActivate(): Observable&lt;boolean&gt; {
-    return this.auth.appUser$
-    .pipe(map(AppUser =&gt; AppUser.isAdmin));
-    }
-}
-</code></pre><ul>
-<li>buka file <strong>auth.service.ts</strong> modifikasi codenya menjadi seperti berikut <strong>tambahkan method get Appuser$</strong></li>
-</ul>
-<pre><code>import { Injectable } from &apos;@angular/core&apos;;
-import { AngularFireAuth } from &apos;angularfire2/auth&apos;;
-import * as firebase from &apos;firebase&apos;;
-import { Observable, of  } from &apos;rxjs&apos;;
-import { ActivatedRoute } from &apos;@angular/router&apos;;
-import { AppUser } from &apos;./models/app-user&apos;;
-import { switchMap} from &apos;rxjs/operators&apos;;
-import { UserService } from &apos;./user.service&apos;;
-import { AngularFireDatabase } from &apos;angularfire2/database&apos;;
-
-
-
-@Injectable({
-  providedIn: &apos;root&apos;
-})
-export class AuthService {
-
-  user$:Observable&lt;firebase.User&gt;;
-
-
-  //tambahkan parameter ActivedRoute
-  constructor(
-    private db:AngularFireDatabase,
-    private userService:UserService,
-    private afAuth:AngularFireAuth, 
-    private route :ActivatedRoute) {
-
-    this.user$= afAuth.authState;
-   }
-
-   // tambahakan property snapshot pada route dan property queryParamMap
-  login(){
-    let returnUrl=this.route.snapshot.queryParamMap.get(&apos;returnUrl&apos;)||&apos;/&apos;;
-    localStorage.setItem(&apos;returnUrl&apos;,returnUrl);
-    this.afAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
-  }
-
-  logout(){
-    this.afAuth.auth.signOut();
-  }
-
-get appUser$() : Observable&lt;AppUser&gt; {
-
-    return this.user$.pipe(
-    switchMap(user =&gt;
-      {
-        if (user){
-          return this.db.object(&apos;/users/&apos;+ user.uid).valueChanges();
-        } else{
-          return of(null);
-        }
-      }
-     ))
-  }
-}
-</code></pre><ul>
-<li>buka file <strong>bs-navbar.component.ts</strong> modifikasi code menjadi seperti berikut :</li>
-</ul>
-<pre><code>&lt;nav class=&quot;navbar navbar-expand-md navbar-dark bg-dark fixed-top&quot;&gt;
-  &lt;a class=&quot;navbar-brand&quot; routerLink=&quot;/&quot;&gt;O&lt;/a&gt;
-  &lt;button class=&quot;navbar-toggler&quot; type=&quot;button&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#navbarsExampleDefault&quot; aria-controls=&quot;navbarsExampleDefault&quot; aria-expanded=&quot;false&quot; aria-label=&quot;Toggle navigation&quot;&gt;
-    &lt;span class=&quot;navbar-toggler-icon&quot;&gt;&lt;/span&gt;
-  &lt;/button&gt;
-
-  &lt;div class=&quot;collapse navbar-collapse&quot; id=&quot;navbarsExampleDefault&quot;&gt;
-    &lt;ul class=&quot;navbar-nav mr-auto&quot;&gt;
-
-      &lt;li class=&quot;nav-item&quot;&gt;
-        &lt;!-- 2.tambahkan routerlink --&gt;
-        &lt;a class=&quot;nav-link&quot; routerLink=&quot;/shopping-chart&quot;&gt;Shopping Chart&lt;/a&gt;
-      &lt;/li&gt;
-
-      &lt;!-- tambahkan ng template --&gt;
-        &lt;ng-template #anonymousUser&gt;
-              &lt;li class=&quot;nav-item&quot;&gt;
-              &lt;a class=&quot;nav-link&quot; routerLink=&quot;/login&quot;&gt;Login&lt;/a&gt;
-            &lt;/li&gt;
-        &lt;/ng-template&gt;
-
-      &lt;!-- edit jd appUser$ --&gt;
-      &lt;li ngbDropdown *ngIf=&quot;appUser; else anonymousUser&quot; class=&quot;nav-item dropdown&quot;&gt;
-
-        &lt;!-- edit mjd  {{appUser.name}}--&gt;
-        &lt;a ngbDropdownToggle class=&quot;nav-link dropdown-toggle&quot; id=&quot;dropdown01&quot; data-toggle=&quot;dropdown&quot; aria-haspopup=&quot;true&quot; aria-expanded=&quot;false&quot;&gt;{{appUser.nama}}&lt;/a&gt;
-        &lt;div ngbDropdownMenu class=&quot;dropdown-menu show&quot; aria-labelledby=&quot;dropdown01&quot;&gt;
-
-          &lt;!-- rubah code seperti dibawah ini --&gt;
-          &lt;a class=&quot;dropdown-item&quot; routerLink=&quot;orders&quot;&gt;My Orders&lt;/a&gt;
-
-          &lt;!-- tambahkan ng container --&gt;
-          &lt;ng-container *ngIf=&quot;appUser.isAdmin&quot;&gt;
-              &lt;a class=&quot;dropdown-item&quot; routerLink=&quot;/admin/admin-orders&quot;&gt;Manage Orders&lt;/a&gt;
-              &lt;a class=&quot;dropdown-item&quot; routerLink=&quot;/admin/admin-products&quot;&gt;Manage Products&lt;/a&gt;
-          &lt;/ng-container&gt;
-
-          &lt;a class=&quot;dropdown-item&quot; (click)=&quot;logout()&quot;&gt; Log Out&lt;/a&gt;
-        &lt;/div&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/div&gt;
-&lt;/nav&gt;
-</code></pre><ul>
-<li>buka file <strong>bs-navbar.module.ts</strong> modifikasi code sehingga seperti berikut</li>
+<li><p>jika kita lakukan proses save maka hasilnya akan seperti gambar berikut
+<img src="image/chapter1/img30.png" alt=""></p>
+</li>
+<li><p>hal ini dikarenakan method update tidak berjalan dengan baik. Untuk itu lakukan beberapa step berikut ini</p>
+</li>
+<li>buka fike <strong>app.component.ts</strong> modifikasi method initForm</li>
 </ul>
 <pre><code>import { Component } from &apos;@angular/core&apos;;
-import { AuthService } from &apos;../auth.service&apos;;
-import { AppUser } from &apos;../models/app-user&apos;;
-
+import { Todo } from &apos;./class/todo&apos;;
+import { TodoDataService } from &apos;./services/todo-data.service&apos;;
+import { NgbModal } from &apos;@ng-bootstrap/ng-bootstrap&apos;;
+import { FormGroup, FormBuilder, Validators } from &apos;@angular/forms&apos;;
+import { Content } from &apos;@angular/compiler/src/render3/r3_ast&apos;;
 
 @Component({
-  selector: &apos;bs-navbar&apos;,
-  templateUrl: &apos;./bs-navbar.component.html&apos;,
-  styleUrls: [&apos;./bs-navbar.component.css&apos;]
+  selector: &apos;app-root&apos;,
+  templateUrl: &apos;./app.component.html&apos;,
+  styleUrls: [&apos;./app.component.css&apos;]
 })
-export class BsNavbarComponent {
-  appUser: AppUser;
+export class AppComponent {
 
-  constructor(private auth:AuthService) {
-    auth.appUser$.subscribe(appUser =&gt; this.appUser = appUser);
+  newTodo:Todo=new Todo();
+  editForm:FormGroup;
+  todo:any;
+  titleValue:string;
+  dateValue:string;
+  isEdited:boolean;
+
+  constructor( 
+    private todoService:TodoDataService,
+    private modalService: NgbModal,
+    private fb:FormBuilder){}
+
+  get todos(){
+    return this.todoService.getAllTodos();
   }
 
-  logout(){
-    this.auth.logout();
+  addTodo(){
+    // console.log(this.newTodo);
+    if(this.newTodo.title &amp;&amp; this.newTodo.date){
+      this.todoService.addTodos(this.newTodo);
+      //cek isi new todo apakah berhasil
+      // console.log(this.newTodo);
+      this.newTodo= new Todo();
+      this.newTodo.title=&apos;&apos;;
+      this.newTodo.date=&apos;&apos;;
+    }
+  }
+
+  deleteTod(todo){
+    this.todoService.deleteTodoById(todo.id);
+  }
+
+  completeTodo(todo){
+    this.todoService.compoleteTodo(todo);
+  }
+
+  open(content,todo){
+    // console.log(todo);
+    this.isEdited=false;
+    this.initForm(todo);
+    this.todo={
+      id: todo.id,
+      title:todo.title,
+      date:todo.date,
+      complete:todo.complete
+    }
+    if(todo.date.year &amp;&amp; todo.date.month){
+      // console.log(todo.date.year &amp;&amp; todo.date.month);
+      this.titleValue=`${todo.title}` ;
+      this.dateValue=`${todo.date.day}-${todo.date.month}-${todo.date.year}`;
+    }
+    if(todo.date.year &amp;&amp; !todo.date.month){
+      // console.log(todo.date.year &amp;&amp; todo.date.month);
+      this.titleValue=`${todo.title}` ;
+      this.dateValue=`${todo.date}`;
+    }
+    this.modalService.open(content, {ariaLabelledBy: &apos;modal-basic-title&apos;});
+  }
+
+  updateTodo(){
+    this.todoService.updateTodo(this.todo.id,this.editForm.value);
+    this.isEdited=true;
+  }
+
+  initForm(todo){
+    // this.editForm=this.fb.group({
+    //   title:[&apos;&apos;,Validators.required],
+    //   date:[&apos;&apos;,Validators.required]
+    // });
+    if(todo.date.year &amp;&amp; todo.date.month){
+      this.editForm=this.fb.group({
+      title:[`${todo.title}`,Validators.required],
+      date:[`${todo.date.day}-${todo.date.month}-${todo.date.year}`,Validators.required]
+    });
+    }
+    if(todo.date.year &amp;&amp; !todo.date.month){
+      this.editForm=this.fb.group({
+      title:[`${todo.title}`,Validators.required],
+      date:[`${todo.date}`,Validators.required]
+    });
+    }
+
   }
 }
 </code></pre><ul>
-<li>jalankan <strong>ng serve</strong> jika berhasil maka saat <strong>isAdmin bernilai false</strong> maka tampilannya seperti berikut</li>
+<li>buka file <strong>app.component.html</strong> tambahkan code berikut</li>
 </ul>
-<p><img src="image/chapter2/img23.png" alt=""></p>
-<p><img src="image/chapter2/img24.png" alt=""></p>
-<ul>
-<li>jalankan <strong>ng serve</strong> jika berhasil maka saat <strong>isAdmin bernilai true</strong> maka tampilannya seperti berikut</li>
+<pre><code>&lt;td *ngIf=&quot;todo.date.year &amp;&amp; todo.date.month&quot;&gt;{{ todo.date.day }}-{{ todo.date.month }}-{{ todo.date.year }}&lt;/td&gt;
+        &lt;td *ngIf=&quot;todo.date &amp;&amp; !todo.date.month&quot;&gt;{{ todo.date}}&lt;/td&gt;
+</code></pre><ul>
+<li>jika berhasil maka hasilnya seperti berikut
+<img src="image/chapter1/img31.png" alt="">
+<img src="image/chapter1/img32.png" alt="">
+<img src="image/chapter1/img33.png" alt=""></li>
 </ul>
-<p><img src="image/chapter2/img25.png" alt=""></p>
-<p><img src="image/chapter2/img26.png" alt=""></p>
 
                                 
                                 </section>
@@ -744,12 +556,12 @@ export class BsNavbarComponent {
 
             
                 
-                <a href="17.html" class="navigation navigation-prev " aria-label="Previous page: 17. Admin">
+                <a href="17.html" class="navigation navigation-prev " aria-label="Previous page: 17.Update Method">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="19.html" class="navigation navigation-next " aria-label="Next page: 19. Product-Form">
+                <a href="19.html" class="navigation navigation-next " aria-label="Next page: 19.Dismis Modal">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -760,7 +572,7 @@ export class BsNavbarComponent {
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"18. menu admin dan menu user","level":"1.19","depth":1,"next":{"title":"19. Product-Form","level":"1.20","depth":1,"path":"19.md","ref":"19.md","articles":[]},"previous":{"title":"17. Admin","level":"1.18","depth":1,"path":"17.md","ref":"17.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"18.md","mtime":"2019-01-21T14:12:05.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-25T14:48:44.214Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"18.Fix Update Method","level":"1.19","depth":1,"next":{"title":"19.Dismis Modal","level":"1.20","depth":1,"path":"19.md","ref":"19.md","articles":[]},"previous":{"title":"17.Update Method","level":"1.18","depth":1,"path":"17.md","ref":"17.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["livereload"],"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"18.md","mtime":"2019-01-26T14:46:54.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-26T14:47:55.426Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

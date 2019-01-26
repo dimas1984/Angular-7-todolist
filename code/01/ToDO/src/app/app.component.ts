@@ -14,6 +14,10 @@ export class AppComponent {
 
   newTodo:Todo=new Todo();
   editForm:FormGroup;
+  todo:any;
+  titleValue:string;
+  dateValue:string;
+  isEdited:boolean;
 
   constructor( 
     private todoService:TodoDataService,
@@ -45,19 +49,53 @@ export class AppComponent {
   }
 
   open(content,todo){
-    this.initForm();
+    // console.log(todo);
+    this.isEdited=false;
+    this.initForm(todo);
+    this.todo={
+      id: todo.id,
+      title:todo.title,
+      date:todo.date,
+      complete:todo.complete
+    }
+    if(todo.date.year && todo.date.month){
+      // console.log(todo.date.year && todo.date.month);
+      this.titleValue=`${todo.title}` ;
+      this.dateValue=`${todo.date.day}-${todo.date.month}-${todo.date.year}`;
+    }
+    if(todo.date.year && !todo.date.month){
+      // console.log(todo.date.year && todo.date.month);
+      this.titleValue=`${todo.title}` ;
+      this.dateValue=`${todo.date}`;
+    }
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
   }
 
   updateTodo(){
-
+    this.todoService.updateTodo(this.todo.id,this.editForm.value);
+    this.isEdited=true;
+    setTimeout(() => {
+      this.modalService.dismissAll();
+    }, 3000);
   }
 
-  initForm(){
-    this.editForm=this.fb.group({
-      title:['',Validators.required],
-      date:['',Validators.required]
+  initForm(todo){
+    // this.editForm=this.fb.group({
+    //   title:['',Validators.required],
+    //   date:['',Validators.required]
+    // });
+    if(todo.date.year && todo.date.month){
+      this.editForm=this.fb.group({
+      title:[`${todo.title}`,Validators.required],
+      date:[`${todo.date.day}-${todo.date.month}-${todo.date.year}`,Validators.required]
     });
+    }
+    if(todo.date.year && !todo.date.month){
+      this.editForm=this.fb.group({
+      title:[`${todo.title}`,Validators.required],
+      date:[`${todo.date}`,Validators.required]
+    });
+    }
 
   }
 }
